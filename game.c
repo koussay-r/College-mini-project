@@ -112,8 +112,9 @@ void main(){
     Village villages[MAX_LIGNES_VILLAGES];
     Periode periodes[MAX_LIGNES_PERIODES];
     int number_lignes_unites_magasin,number_ligne_village,number_ligne_type_terrain,number_ligne_periode;
-    number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"unitesMagasin_original.txt");
-    number_ligne_village=chargerVillagesVersTableau(villages,"villages_original.txt");
-    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"typesTerrains_original.txt");
-    number_ligne_periode=chargerPeriodesVersTableau( periodes,"periodes_original.txt");
+    number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"./files/unitesMagasin_original.txt");
+    printf("%d",number_lignes_unites_magasin);
+    number_ligne_village=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
+    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
+    number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
 }
