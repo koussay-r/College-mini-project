@@ -97,13 +97,9 @@ int chargerPeriodesVersTableau(Periode periodes[MAX_LIGNES_PERIODES], char* nomF
         return 0;
     }
     else{
-        char ligne[100];
-        while(fgets(ligne,sizeof(ligne),file)!=NULL){
-            char line=ligne[sizeof(ligne-6)];
-            for(int i=sizeof(ligne-6);i<sizeof(ligne);i++){
-                //i stoped here
-            }
-            sscanf(line,"%d %s",&periodes[Numbr_lignes].numOrdre,&periodes[Numbr_lignes].moment);
+        char line[100];
+        while(fgets(line,sizeof(line),file)!=NULL){     
+            sscanf(line,"%d %s %d %d %d",&periodes[Numbr_lignes].numOrdre,&periodes[Numbr_lignes].moment,&periodes[Numbr_lignes].bonus[0],&periodes[Numbr_lignes].bonus[1],&periodes[Numbr_lignes].bonus[2]);
             Numbr_lignes++;
         }
     }
@@ -114,12 +110,10 @@ void main(){
     UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN];
     TypeTerrain typesTerrains[NB_TYPES_TERRAINS];
     Village villages[MAX_LIGNES_VILLAGES];
-    int number_lignes_unites_magasin,number_ligne_village,number_ligne_type_terrain;
+    Periode periodes[MAX_LIGNES_PERIODES];
+    int number_lignes_unites_magasin,number_ligne_village,number_ligne_type_terrain,number_ligne_periode;
     number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"unitesMagasin_original.txt");
     number_ligne_village=chargerVillagesVersTableau(villages,"villages_original.txt");
     number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"typesTerrains_original.txt");
-    printf("%d",number_ligne_type_terrain);
-    
-    
-
+    number_ligne_periode=chargerPeriodesVersTableau( periodes,"periodes_original.txt");
 }
