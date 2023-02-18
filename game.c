@@ -105,6 +105,30 @@ int chargerPeriodesVersTableau(Periode periodes[MAX_LIGNES_PERIODES], char* nomF
     }
     return Numbr_lignes;
 }
+void afficherUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
+    for(int i=0;i<nb_lignes;i++){
+        printf("%d %d %d \n",unitesMagasin[i].idUniteMagasin,unitesMagasin[0].idFicheTypeUnite,unitesMagasin[i].idJoueurAutorise);
+    }
+    printf("\n");
+}
+void afficherVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES]){
+    for(int i=0;i<nb_lignes;i++){
+        printf("%d %d %d \n",villages[i].idVillage,villages[0].ligne,villages[i].colonne,villages[i].idJoueurProprietaire);
+    }
+    printf("\n");
+}
+void afficherTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
+    for(int i=0;i<nb_lignes;i++){
+        printf("%d %c %d %s \n",typesTerrains[i].idTypeTerrain,typesTerrains[0].symboleTerrain,typesTerrains[i].codeAffichageTerrain,typesTerrains[i].nomTerrain);
+    }
+    printf("\n");
+}
+void afficherPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES]){
+    for(int i=0;i<nbLignes;i++){
+        printf("%d %s %d \n",periodes[i].numOrdre,periodes[0].moment,periodes[i].bonus[0],periodes[i].bonus[1],periodes[i].bonus[2]);
+    }
+    printf("\n");
+}
 void main(){
     char nomFichier;
     UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN];
@@ -116,6 +140,9 @@ void main(){
     number_ligne_village=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
     number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
     number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
-    printf("%d",number_lignes_unites_magasin);
-    
+    afficherUnitesMagasin(number_lignes_unites_magasin,unitesMagasin);
+    afficherVillages(number_ligne_village, villages);
+    afficherTypesTerrains(number_ligne_type_terrain,typesTerrains);
+    afficherPeriodes(number_ligne_periode,periodes);
+
 }
