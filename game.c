@@ -14,6 +14,21 @@
 #define MAX_CAPACITES 3
 #define MAX_TRAITS 3
 typedef struct {
+int idAttaque; // Ces id sont des numéros d'ordre 1,2... Mettre 0 dans la case où on n’a pas d'attaque
+char nomAttaque[20];
+int degat;
+int nombreAttaques;
+int porteeAttaque; // 0 : melee , 1 : ranged
+int typeAttaque ; // 0 : blade, 1 : pierce, 2 : Impact, 3 : fire, 4 : cold, 5 : arcane
+int idAttaqueSpeciale1; // voir la partie des attaques spéciales plus haut
+int idAttaqueSpeciale2; // voir la partie des attaques spéciales plus haut
+} Attaque;
+typedef struct {
+int idTypeTerrain;
+int coutMouvement;
+int defense;
+} RelationTerrain;
+typedef struct {
 int idFicheTypeUnite;
 int race; // humain, elfe, nain... voir la partie des races plus haut
 char nom[20]; // archer, cavalier...
@@ -30,16 +45,7 @@ int resistances[NB_RESISTANCES] ; // ordres des cases // blade, pierce, impact, 
 RelationTerrain relationsTerrains[NB_TYPES_TERRAINS]; // suivant les id : voir la partie terrains
 int idCapacites[MAX_CAPACITES]; // voir la partie des capacités plus haut, 0 sinon existante
 } FicheTypeUnite;
-typedef struct {
-int idAttaque; // Ces id sont des numéros d'ordre 1,2... Mettre 0 dans la case où on n’a pas d'attaque
-char nomAttaque[20];
-int degat;
-int nombreAttaques;
-int porteeAttaque; // 0 : melee , 1 : ranged
-int typeAttaque ; // 0 : blade, 1 : pierce, 2 : Impact, 3 : fire, 4 : cold, 5 : arcane
-int idAttaqueSpeciale1; // voir la partie des attaques spéciales plus haut
-int idAttaqueSpeciale2; // voir la partie des attaques spéciales plus haut
-} Attaque;
+
 typedef struct {
 int idUniteMagasin;// Ces id sont des numéros d'ordre 1,2... Mettre 0 dans la case où on n’a pas d'unité
 int idFicheTypeUnite;
@@ -57,11 +63,7 @@ char symboleTerrain;
 int codeAffichageTerrain;
 char nomTerrain[20];
 } TypeTerrain;
-typedef struct {
-int idTypeTerrain;
-int coutMouvement;
-int defense;
-} RelationTerrain;
+
 typedef struct {
 int idJoueur;
 char symbole; // cas par défaut : J : joueur humain, E : joueur ennemi
@@ -113,14 +115,14 @@ int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITES
         return 0;
     }
     else{
-        char line[100];
         while(!feof(file)){
             fscanf(file,"%d %d %d",&unitesMagasin[Numbr_lignes].idUniteMagasin,&unitesMagasin[Numbr_lignes].idFicheTypeUnite,&unitesMagasin[Numbr_lignes].idJoueurAutorise);
             Numbr_lignes++;
         }
-        return Numbr_lignes;
+        
     }
     fclose(file);
+    return Numbr_lignes;
 }
 int chargerVillagesVersTableau(Village villages[MAX_LIGNES_VILLAGES], char* nomFichier){
     FILE *file;
@@ -131,12 +133,13 @@ int chargerVillagesVersTableau(Village villages[MAX_LIGNES_VILLAGES], char* nomF
         return 0;
     }
     else{
-        char line[100];
         while(!feof(file)){
             fscanf(file,"%d %d %d %d",&villages[Numbr_lignes].idVillage,&villages[Numbr_lignes].ligne,&villages[Numbr_lignes].colonne,&villages[Numbr_lignes].idJoueurProprietaire);
             Numbr_lignes++;
         }
     }
+    fclose(file);
+
     return Numbr_lignes;
 }
 int chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS],char* nomFichier){
@@ -148,12 +151,13 @@ int chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS]
         return 0;
     }
     else{
-        char line[100];
         while(!feof(file)){
             fscanf(file,"%d %c %d %s",&typesTerrains[Numbr_lignes].idTypeTerrain,&typesTerrains[Numbr_lignes].symboleTerrain,&typesTerrains[Numbr_lignes].codeAffichageTerrain,&typesTerrains[Numbr_lignes].nomTerrain);
             Numbr_lignes++;
         }
     }
+    fclose(file);
+
     return Numbr_lignes;
 }
 int chargerPeriodesVersTableau(Periode periodes[MAX_LIGNES_PERIODES], char* nomFichier){
@@ -165,12 +169,13 @@ int chargerPeriodesVersTableau(Periode periodes[MAX_LIGNES_PERIODES], char* nomF
         return 0;
     }
     else{
-        char line[100];
         while(!feof(file)){     
             fscanf(file,"%d %s %d %d %d",&periodes[Numbr_lignes].numOrdre,&periodes[Numbr_lignes].moment,&periodes[Numbr_lignes].bonus[0],&periodes[Numbr_lignes].bonus[1],&periodes[Numbr_lignes].bonus[2]);
             Numbr_lignes++;
         }
     }
+    fclose(file);
+
     return Numbr_lignes;
 }
 void afficherUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
@@ -178,48 +183,60 @@ void afficherUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_U
         printf("%d %d %d \n",unitesMagasin[i].idUniteMagasin,unitesMagasin[0].idFicheTypeUnite,unitesMagasin[i].idJoueurAutorise);
     }
     printf("\n");
+
 }
 void afficherVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES]){
     for(int i=0;i<nb_lignes;i++){
         printf("%d %d %d \n",villages[i].idVillage,villages[0].ligne,villages[i].colonne,villages[i].idJoueurProprietaire);
     }
     printf("\n");
+
 }
 void afficherTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
     for(int i=0;i<nb_lignes;i++){
         printf("%d %c %d %s \n",typesTerrains[i].idTypeTerrain,typesTerrains[0].symboleTerrain,typesTerrains[i].codeAffichageTerrain,typesTerrains[i].nomTerrain);
     }
     printf("\n");
+
 }
 void afficherPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES]){
     for(int i=0;i<nbLignes;i++){
         printf("%d %s %d %d %d\n",periodes[i].numOrdre,periodes[0].moment,periodes[i].bonus[0],periodes[i].bonus[1],periodes[i].bonus[2]);
     }
     printf("\n");
+
 }
 void sauvegarderUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
     for(int i=0;i<nb_lignes;i++){
         fprintf(file,"%d %d %d\n",unitesMagasin[i].idUniteMagasin,unitesMagasin[i].idFicheTypeUnite,unitesMagasin[i].idJoueurAutorise);
     }
+    fclose(file);
+
 }
 void sauvegarderVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES], char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
     for(int i=0;i<nb_lignes;i++){
         fprintf(file,"%d %d %d\n",villages[i].idVillage,villages[i].ligne,villages[i].colonne,villages[i].idJoueurProprietaire);
     }
+    fclose(file);
+
 }
 void sauvegarderTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_TERRAINS],char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
     for(int i=0;i<nb_lignes;i++){
         fprintf(file,"%d %d %d %s\n",typesTerrains[i].idTypeTerrain,typesTerrains[i].symboleTerrain,typesTerrains[i].codeAffichageTerrain,typesTerrains[i].nomTerrain);
     }
+    fclose(file);
+
 }
 void sauvegarderPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES], char*nomFichier){
     FILE *file=fopen(nomFichier,"w");
     for(int i=0;i<nbLignes;i++){
         fprintf(file,"%d %s %d %d %d \n",periodes[i].numOrdre,periodes[i].moment,periodes[i].bonus[0],periodes[i].bonus[1],periodes[i].bonus[2],periodes[i].bonus[3]);
     }
+    fclose(file);
+
 }
 void main(){
     char nomFichier;
@@ -228,17 +245,14 @@ void main(){
     Village villages[MAX_LIGNES_VILLAGES];
     Periode periodes[MAX_LIGNES_PERIODES];
     int number_lignes_unites_magasin,number_ligne_village,number_ligne_type_terrain,number_ligne_periode;
-    number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"./files/unitesMagasin_original.txt");
-    number_ligne_village=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
-    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
-    number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
+    number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"unitesMagasin_original.txt");
+    number_ligne_village=chargerVillagesVersTableau(villages,"villages_original.txt");
+    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"typesTerrains_original.txt");
+    number_ligne_periode=chargerPeriodesVersTableau( periodes,"periodes_original.txt");
     afficherUnitesMagasin(number_lignes_unites_magasin,unitesMagasin);
     afficherVillages(number_ligne_village, villages);
     afficherTypesTerrains(number_ligne_type_terrain,typesTerrains);
     afficherPeriodes(number_ligne_periode,periodes);
-    sauvegarderUnitesMagasin(number_lignes_unites_magasin,unitesMagasin,"unitesMagasin_sauvegarde.txt");
     sauvegarderVillages(number_ligne_village,villages,"villages_sauvegarde.txt");
-    sauvegarderTypesTerrains(number_ligne_type_terrain,typesTerrains,"typesTerrains_sauvegarde.txt");
-    sauvegarderPeriodes(number_ligne_periode,periodes,"periodes_sauvegarde.txt");
 
 }
