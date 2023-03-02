@@ -6,7 +6,7 @@
 #define MAX_LIGNES_FICHES_TYPES_UNITES 10
 #define MAX_LIGNES_UNITESMAGASIN 8
 #define MAX_LIGNES_VILLAGES 14
-#define MAX_LIGNES_PERIODES 10
+#define NB_LIGNES_PERIODES 10
 #define NB_UNITES_RANG_INF_SUP 3
 #define MAX_ATTAQUES 3
 #define NB_RESISTANCES 6
@@ -160,7 +160,7 @@ int chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS]
 
     return Numbr_lignes;
 }
-int chargerPeriodesVersTableau(Periode periodes[MAX_LIGNES_PERIODES], char* nomFichier){
+int chargerPeriodesVersTableau(Periode periodes[NB_LIGNES_PERIODES], char* nomFichier){
     FILE *file;
     file=fopen(nomFichier,"r");
     int Numbr_lignes=0;
@@ -192,15 +192,15 @@ void afficherVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES]){
     printf("\n");
 
 }
-void afficherTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
-    for(int i=0;i<nb_lignes;i++){
+void afficherTypesTerrains(TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
+    for(int i=0;i<NB_TYPES_TERRAINS;i++){
         printf("%d %c %d %s \n",typesTerrains[i].idTypeTerrain,typesTerrains[0].symboleTerrain,typesTerrains[i].codeAffichageTerrain,typesTerrains[i].nomTerrain);
     }
     printf("\n");
 
 }
-void afficherPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES]){
-    for(int i=0;i<nbLignes;i++){
+void afficherPeriodes( Periode periodes[NB_LIGNES_PERIODES]){
+    for(int i=0;i<NB_LIGNES_PERIODES;i++){
         printf("%d %s %d %d %d\n",periodes[i].numOrdre,periodes[0].moment,periodes[i].bonus[0],periodes[i].bonus[1],periodes[i].bonus[2]);
     }
     printf("\n");
@@ -214,9 +214,9 @@ void sauvegarderUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNE
     fclose(file);
 
 }
-void sauvegarderVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES], char* nomFichier){
+void sauvegarderVillages(int nbVillages, Village villages[MAX_LIGNES_VILLAGES], char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
-    for(int i=0;i<nb_lignes;i++){
+    for(int i=0;i<nbVillages;i++){
         fprintf(file,"%d %d %d\n",villages[i].idVillage,villages[i].ligne,villages[i].colonne,villages[i].idJoueurProprietaire);
     }
     fclose(file);
@@ -230,7 +230,7 @@ void sauvegarderTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_
     fclose(file);
 
 }
-void sauvegarderPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES], char*nomFichier){
+void sauvegarderPeriodes(int nbLignes, Periode periodes[NB_LIGNES_PERIODES], char*nomFichier){
     FILE *file=fopen(nomFichier,"w");
     for(int i=0;i<nbLignes;i++){
         fprintf(file,"%d %s %d %d %d \n",periodes[i].numOrdre,periodes[i].moment,periodes[i].bonus[0],periodes[i].bonus[1],periodes[i].bonus[2],periodes[i].bonus[3]);
@@ -238,21 +238,72 @@ void sauvegarderPeriodes(int nbLignes, Periode periodes[MAX_LIGNES_PERIODES], ch
     fclose(file);
 
 }
+int chargerJoueursVersTableau(Joueur joueurs[MAX_LIGNES_JOUEURS], char* nomFichier){
+    FILE *file;
+    file=fopen(nomFichier,"r");
+    int Numbr_lignes=0;
+    if(file==NULL){
+        printf("erreur loading file");
+        return 0;
+    }
+    else{
+        while(!feof(file)){     
+            fscanf(file,"%d %c %d %d",&joueurs[Numbr_lignes].idJoueur,&joueurs[Numbr_lignes].symbole,&joueurs[Numbr_lignes].or,&joueurs[Numbr_lignes].groupe_allies);
+            Numbr_lignes++;
+        }
+    }
+    fclose(file);
+
+    return Numbr_lignes;
+}
+int chargerFichesTypesUnitesVersTableau(FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES], char* nomFichier){
+    FILE *file;
+    file=fopen(nomFichier,"r");
+    int Numbr_lignes=0;
+    if(file==NULL){
+        printf("erreur loading file");
+        return 0;
+    }
+    else{
+        while(!feof(file)){     
+            fscanf(file,"%d %d %s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFicheTypeUnite,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].race,fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].nom,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].prix,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].pvMax,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].mouvementsMax,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].xpRequise,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].niveau,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].alignement,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[3],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[4],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[5],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[2]);
+            Numbr_lignes++;
+        }
+    }
+    fclose(file);
+
+    return Numbr_lignes;
+}
+void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][ NB_COLONNES_CARTE],TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char* nomFichier){
+    FILE *file;
+    file=fopen(nomFichier,"r");
+    int Numbr_lignes=0;
+    if(file==NULL){
+        printf("erreur loading file");
+        return 0;
+    }
+    
+}
 void main(){
     char nomFichier;
     UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN];
     TypeTerrain typesTerrains[NB_TYPES_TERRAINS];
     Village villages[MAX_LIGNES_VILLAGES];
-    Periode periodes[MAX_LIGNES_PERIODES];
-    int number_lignes_unites_magasin,number_ligne_village,number_ligne_type_terrain,number_ligne_periode;
-    number_lignes_unites_magasin=chargerUnitesMagasinVersTableau(unitesMagasin,"unitesMagasin_original.txt");
-    number_ligne_village=chargerVillagesVersTableau(villages,"villages_original.txt");
-    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"typesTerrains_original.txt");
-    number_ligne_periode=chargerPeriodesVersTableau( periodes,"periodes_original.txt");
-    afficherUnitesMagasin(number_lignes_unites_magasin,unitesMagasin);
-    afficherVillages(number_ligne_village, villages);
-    afficherTypesTerrains(number_ligne_type_terrain,typesTerrains);
-    afficherPeriodes(number_ligne_periode,periodes);
-    sauvegarderVillages(number_ligne_village,villages,"villages_sauvegarde.txt");
+    Periode periodes[NB_LIGNES_PERIODES];
+    Joueur joueurs[MAX_LIGNES_JOUEURS];
+    FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES];
+    int nbUnitesMagasin,nbVillages,number_ligne_type_terrain,number_ligne_periode,NbJoueur,NbficheTypesUnites;
+    nbUnitesMagasin=chargerUnitesMagasinVersTableau(unitesMagasin,"./files/unitesMagasin_original.txt");
+    nbVillages=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
+    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
+    number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
+    afficherUnitesMagasin(nbUnitesMagasin,unitesMagasin);
+    afficherVillages(nbVillages, villages);
+    afficherTypesTerrains(typesTerrains);
+    afficherPeriodes(periodes);
+    sauvegarderVillages(nbVillages,villages,"villages_sauvegarde.txt");
+    //tham functions na9ssin hna mta3 aka indices 
+    NbJoueur=chargerJoueursVersTableau(joueurs,"./files/joueurs_originals.txt");
+    NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,'./files/fichesTypesUnites_original.txt');
 
 }
