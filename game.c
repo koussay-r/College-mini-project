@@ -191,7 +191,7 @@ int chargerJoueursVersTableau(Joueur joueurs[MAX_LIGNES_JOUEURS], char* nomFichi
         return 0;
     }
     else{
-        while(!feof(file)){     
+        while(!feof(file)){    
             fscanf(file,"%d %c %d %d",&joueurs[Numbr_lignes].idJoueur,&joueurs[Numbr_lignes].symbole,&joueurs[Numbr_lignes].or,&joueurs[Numbr_lignes].groupe_allies);
             Numbr_lignes++;
         }
@@ -210,13 +210,29 @@ int chargerFichesTypesUnitesVersTableau(FicheTypeUnite fichesTypesUnites[MAX_LIG
     }
     else{
         while(!feof(file)){     
-            fscanf(file,"%d %d %s %d %d %d %d %d %d %d %d %d %d %d %s %d %d %d %d %d %d %d %d %d %d %d %d %d",&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFicheTypeUnite,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].race,fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].nom,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].prix,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].pvMax,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].mouvementsMax,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].xpRequise,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].niveau,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].alignement,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangInf[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idFichesTypeUniteRangSup[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[MAX_LIGNES_FICHES_TYPES_UNITES].idAttaque,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[MAX_LIGNES_FICHES_TYPES_UNITES].nomAttaque,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].attaques[MAX_LIGNES_FICHES_TYPES_UNITES].degat,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[2],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[3],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[4],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].resistances[5],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[MAX_LIGNES_FICHES_TYPES_UNITES].idTypeTerrain,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[MAX_LIGNES_FICHES_TYPES_UNITES].coutMouvement,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].relationsTerrains[MAX_LIGNES_FICHES_TYPES_UNITES].defense,&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[0],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[1],&fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES].idCapacites[2]);
+            fscanf(file,"%d %d %s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",&fichesTypesUnites[Numbr_lignes].idFicheTypeUnite,&fichesTypesUnites[Numbr_lignes].race,fichesTypesUnites[Numbr_lignes].nom,&fichesTypesUnites[Numbr_lignes].prix,&fichesTypesUnites[Numbr_lignes].pvMax,&fichesTypesUnites[Numbr_lignes].mouvementsMax,&fichesTypesUnites[Numbr_lignes].xpRequise,&fichesTypesUnites[Numbr_lignes].niveau,&fichesTypesUnites[Numbr_lignes].alignement,&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangInf[0],&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangInf[1],&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangInf[2],&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangSup[0],&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangSup[1],&fichesTypesUnites[Numbr_lignes].idFichesTypeUniteRangSup[2],&fichesTypesUnites[Numbr_lignes].attaques[0].idAttaque,&fichesTypesUnites[Numbr_lignes].attaques[1].idAttaque,&fichesTypesUnites[Numbr_lignes].attaques[2].idAttaque,&fichesTypesUnites[Numbr_lignes].resistances[0],&fichesTypesUnites[Numbr_lignes].resistances[1],&fichesTypesUnites[Numbr_lignes].resistances[2],&fichesTypesUnites[Numbr_lignes].resistances[3],&fichesTypesUnites[Numbr_lignes].resistances[4],&fichesTypesUnites[Numbr_lignes].resistances[5],&fichesTypesUnites[Numbr_lignes].relationsTerrains[0].idTypeTerrain,&fichesTypesUnites[Numbr_lignes].idCapacites[0],&fichesTypesUnites[Numbr_lignes].idCapacites[1],&fichesTypesUnites[Numbr_lignes].idCapacites[2]);
             Numbr_lignes++;
         }
     }
     fclose(file);
 
     return Numbr_lignes;
+}
+void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],char* nomFichier){
+     FILE *file;
+    file=fopen(nomFichier,"r");
+    int Numbr_lignes=0;
+    if(file==NULL){
+        printf("erreur loading file");
+        
+    }
+    else{
+        while(!feof(file)){     
+            fscanf(file,"%d %d %d %s %d %d %d %d %d %d %d",&unitesJoueurs[Numbr_lignes].idUnite,&unitesJoueurs[Numbr_lignes].idFicheTypeUnite,&unitesJoueurs[Numbr_lignes].idJoueur,unitesJoueurs[Numbr_lignes].nomUnite,&unitesJoueurs[Numbr_lignes].active,&unitesJoueurs[Numbr_lignes].rang,&unitesJoueurs[Numbr_lignes].ligne,&unitesJoueurs[Numbr_lignes].colonne,&unitesJoueurs[Numbr_lignes].traits[0],&unitesJoueurs[Numbr_lignes].traits[1],&unitesJoueurs[Numbr_lignes].traits[2]);
+            Numbr_lignes++;
+        }
+    }
+    fclose(file);
 }
 // affichage functions
 void afficherUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
@@ -246,6 +262,19 @@ void afficherPeriodes(Periode periodes[NB_LIGNES_PERIODES]){
     }
     printf("\n");
 
+}
+void afficherJoueurs(int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    for(int i=0;i<nbJoueurs;i++){
+        printf("%d %c %d %d\n",joueurs[i].idJoueur,joueurs[i].symbole,joueurs[i].or,joueurs[i].groupe_allies);
+    }
+    printf("\n");
+    
+}
+void afficherFichesTypesUnites(int nbFichesTypesUnites, FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
+    for(int i=0;i<nbFichesTypesUnites;i++){
+        printf("%d %d %s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",fichesTypesUnites[i].idFicheTypeUnite,fichesTypesUnites[i].race,fichesTypesUnites[i].nom,fichesTypesUnites[i].prix,fichesTypesUnites[i].pvMax,fichesTypesUnites[i].mouvementsMax,fichesTypesUnites[i].xpRequise,fichesTypesUnites[i].niveau,fichesTypesUnites[i].alignement,fichesTypesUnites[i].idFichesTypeUniteRangInf[0],fichesTypesUnites[i].idFichesTypeUniteRangInf[1],fichesTypesUnites[i].idFichesTypeUniteRangInf[2],fichesTypesUnites[i].idFichesTypeUniteRangSup[0],fichesTypesUnites[i].idFichesTypeUniteRangSup[1],fichesTypesUnites[i].idFichesTypeUniteRangSup[2],fichesTypesUnites[i].attaques[0].idAttaque,fichesTypesUnites[i].attaques[1].idAttaque,fichesTypesUnites[i].attaques[2].idAttaque,fichesTypesUnites[i].resistances[0],fichesTypesUnites[i].resistances[1],fichesTypesUnites[i].resistances[2],fichesTypesUnites[i].resistances[3],fichesTypesUnites[i].resistances[4],fichesTypesUnites[i].resistances[5],fichesTypesUnites[i].relationsTerrains[0].idTypeTerrain,fichesTypesUnites[i].idCapacites[0],fichesTypesUnites[i].idCapacites[1],fichesTypesUnites[i].idCapacites[2]);
+    }
+    printf("\n");
 }
 //sauvegrader functions
 void sauvegarderUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
@@ -349,6 +378,7 @@ void main(){
     RelationTerrain relationsTerrains[NB_TYPES_TERRAINS];
     FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES];
     UniteJoueur Unitejoueurs[MAX_LIGNES_JOUEURS];
+    UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS];
     // varriables declaration
     int nbUnitesMagasin,IndiceJoueur1,nbVillages,IndiceTypeTerrain,number_ligne_type_terrain,IndiceRelationTerrain,number_ligne_periode,NbJoueur,NbficheTypesUnites,IndiceJoueur;
     //function calls
@@ -356,16 +386,18 @@ void main(){
     nbVillages=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
     number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
     number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
+    NbJoueur=chargerJoueursVersTableau(joueurs,"./files/joueurs_originals.txt");
+    NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,"./files/fichesTypesUnites_original.txt");
+    chargerUnitesJoueursVersTableau(unitesJoueurs,"./files/unitesJoueurs_original.txt");
     afficherUnitesMagasin(nbUnitesMagasin,unitesMagasin);
     afficherVillages(nbVillages, villages);
     afficherTypesTerrains(typesTerrains);
     afficherPeriodes(periodes);
+    afficherJoueurs(NbJoueur,joueurs);
+    afficherFichesTypesUnites(NbficheTypesUnites,fichesTypesUnites);
     sauvegarderVillages(nbVillages,villages,"villages_sauvegarde.txt");
-    NbJoueur=chargerJoueursVersTableau(joueurs,"./files/joueurs_originals.txt");
     IndiceJoueur=chercherIndiceJoueur(1,2,joueurs);
-    NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,"./files/fichesTypesUnites_original.txt");
     IndiceRelationTerrain=chercherIndiceRelationTerrain(1,relationsTerrains);
     IndiceTypeTerrain=chercherIndiceTypeTerrain('F',typesTerrains);
     IndiceJoueur1=chercherIndiceUniteJoueur(1,2,1,Unitejoueurs);
-
 }
