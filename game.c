@@ -276,6 +276,14 @@ void afficherFichesTypesUnites(int nbFichesTypesUnites, FicheTypeUnite fichesTyp
     }
     printf("\n");
 }
+void afficherUniteJoueur( UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+     for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+        printf("%d %d %d %s %d %d %d %d %d %d %d\n",unitesJoueurs[i].idUnite,unitesJoueurs[i].idFicheTypeUnite,unitesJoueurs[i].idJoueur,unitesJoueurs[i].nomUnite,unitesJoueurs[i].active,unitesJoueurs[i].rang,unitesJoueurs[i].ligne,unitesJoueurs[i].colonne,unitesJoueurs[i].traits[0],unitesJoueurs[i].traits[1],unitesJoueurs[i].traits[2]);
+    }
+    printf("\n");
+            
+
+}
 //sauvegrader functions
 void sauvegarderUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
@@ -308,6 +316,20 @@ void sauvegarderPeriodes(int nbLignes, Periode periodes[NB_LIGNES_PERIODES], cha
     }
     fclose(file);
 
+}
+void sauvegarderJoueurs(int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS] , char* nomFichier){
+    FILE *file=fopen(nomFichier,"w");
+    for(int i=0;i<nbJoueurs;i++){
+        fprintf(file,"%d %c %d %d\n",joueurs[i].idJoueur,joueurs[i].symbole,joueurs[i].or,joueurs[i].groupe_allies);
+    }
+    fclose(file);
+}
+void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS] , char* nomFichier){
+    FILE *file=fopen(nomFichier,"w");
+    for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+         fprintf(file,"%d %d %d %s %d %d %d %d %d %d %d\n",unitesJoueurs[i].idUnite,unitesJoueurs[i].idFicheTypeUnite,unitesJoueurs[i].idJoueur,unitesJoueurs[i].nomUnite,unitesJoueurs[i].active,unitesJoueurs[i].rang,unitesJoueurs[i].ligne,unitesJoueurs[i].colonne,unitesJoueurs[i].traits[0],unitesJoueurs[i].traits[1],unitesJoueurs[i].traits[2]);
+    }
+    fclose(file);
 }
 //recherche functions
 int chercherIndiceJoueur(int idJoueur, int nbLignesReel, Joueur joueurs[MAX_LIGNES_JOUEURS]){
@@ -395,7 +417,10 @@ void main(){
     afficherPeriodes(periodes);
     afficherJoueurs(NbJoueur,joueurs);
     afficherFichesTypesUnites(NbficheTypesUnites,fichesTypesUnites);
+    afficherUniteJoueur(unitesJoueurs);
     sauvegarderVillages(nbVillages,villages,"villages_sauvegarde.txt");
+    sauvegarderJoueurs(NbJoueur,joueurs,"joueurs_sauvegarde.txt");
+    sauvegarderUniteJoueur(unitesJoueurs,"unitesJoueurs_sauvegarde.txt");
     IndiceJoueur=chercherIndiceJoueur(1,2,joueurs);
     IndiceRelationTerrain=chercherIndiceRelationTerrain(1,relationsTerrains);
     IndiceTypeTerrain=chercherIndiceTypeTerrain('F',typesTerrains);
