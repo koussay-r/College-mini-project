@@ -168,6 +168,20 @@ int chercherIndiceUniteJoueur(int idUnite,int idJoueur,int active, UniteJoueur U
     }
     return IndiceJoueur;
 }
+int chercherIndiceFicheTypeUnite(int idFicheTypeUnite, int nbFichesTypesUnites, FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
+    int IndiceJoueur=-1;
+    int VarParcour=0;
+    while (VarParcour<nbFichesTypesUnites&&IndiceJoueur==-1)
+    {
+        if(fichesTypesUnites[VarParcour].idFicheTypeUnite==idFicheTypeUnite){
+            IndiceJoueur=VarParcour;
+        }
+        else{
+            VarParcour++;
+        }
+    }
+    return IndiceJoueur;
+}
 //charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
     FILE *file;
@@ -435,14 +449,14 @@ void main(){
     // varriables declaration
     int nbUnitesMagasin,IndiceJoueur1,nbVillages,IndiceTypeTerrain,number_ligne_type_terrain,IndiceRelationTerrain,number_ligne_periode,NbJoueur,NbficheTypesUnites,IndiceJoueur;
     //function calls
-    nbUnitesMagasin=chargerUnitesMagasinVersTableau(unitesMagasin,"./files/unitesMagasin_original.txt");
-    nbVillages=chargerVillagesVersTableau(villages,"./files/villages_original.txt");
-    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"./files/typesTerrains_original.txt");
-    number_ligne_periode=chargerPeriodesVersTableau( periodes,"./files/periodes_original.txt");
-    NbJoueur=chargerJoueursVersTableau(joueurs,"./files/joueurs_originals.txt");
-    NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,"./files/fichesTypesUnites_original.txt");
-    chargerUnitesJoueursVersTableau(unitesJoueurs,"./files/unitesJoueurs_original.txt");
-    chargerCarteVersTableau(carte,typesTerrains,"./files/carte_original.txt");
+    nbUnitesMagasin=chargerUnitesMagasinVersTableau(unitesMagasin,"unitesMagasin_original.txt");
+    nbVillages=chargerVillagesVersTableau(villages,"villages_original.txt");
+    number_ligne_type_terrain=chargerTypesTerrainsVersTableau( typesTerrains,"typesTerrains_original.txt");
+    number_ligne_periode=chargerPeriodesVersTableau( periodes,"periodes_original.txt");
+    NbJoueur=chargerJoueursVersTableau(joueurs,"joueurs_originals.txt");
+    NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,"fichesTypesUnites_original.txt");
+    chargerUnitesJoueursVersTableau(unitesJoueurs,"unitesJoueurs_original.txt");
+    chargerCarteVersTableau(carte,typesTerrains,"carte_original.txt");
     afficherUnitesMagasin(nbUnitesMagasin,unitesMagasin);
     afficherVillages(nbVillages, villages);
     afficherTypesTerrains(typesTerrains);
