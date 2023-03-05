@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 //constants
 #define NB_LIGNES_CARTE 30
 #define NB_COLONNES_CARTE 38
@@ -109,6 +110,64 @@ char moment[20];
 int bonus[3]; // cases : 0 -> bonus lawful, 1 -> bonus chaotic, 2 -> bonus liminal, 3 -> bonus neutral
 } Periode;
 //functions
+//recherche functions
+int chercherIndiceJoueur(int idJoueur, int nbLignesReel, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    int IndiceJoueur=-1;
+    int VarParcour=0;
+    while (VarParcour<nbLignesReel&&IndiceJoueur==-1)
+    {
+        if(joueurs[VarParcour].idJoueur==idJoueur){
+            IndiceJoueur=VarParcour;
+        }
+        else{
+            VarParcour++;
+        }
+    }
+    return IndiceJoueur;
+    
+}
+int chercherIndiceRelationTerrain(int idTypeTerrain, RelationTerrain relationsTerrains[NB_TYPES_TERRAINS]){
+    int IndiceJoueur=-1;
+    int VarParcour=0;
+    while (VarParcour<NB_TYPES_TERRAINS&&IndiceJoueur==-1)
+    {
+        if(relationsTerrains[VarParcour].idTypeTerrain==idTypeTerrain){
+            IndiceJoueur=VarParcour;
+        }
+        else{
+            VarParcour++;
+        }
+    }
+    return IndiceJoueur;
+}
+int chercherIndiceTypeTerrain(char symboleTerrain, TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
+    int IndiceJoueur=-1;
+    int VarParcour=0;
+    while (VarParcour<NB_TYPES_TERRAINS&&IndiceJoueur==-1)
+    {
+        if(typesTerrains[VarParcour].symboleTerrain==symboleTerrain){
+            IndiceJoueur=VarParcour;
+        }
+        else{
+            VarParcour++;
+        }
+    }
+    return IndiceJoueur;
+}
+int chercherIndiceUniteJoueur(int idUnite,int idJoueur,int active, UniteJoueur Unitejoueurs[MAX_LIGNES_JOUEURS]){
+    int IndiceJoueur=-1;
+    int VarParcour=0;
+    while (VarParcour<MAX_LIGNES_JOUEURS&&IndiceJoueur==-1)
+    {
+        if(Unitejoueurs[VarParcour].idUnite==idUnite&&Unitejoueurs[VarParcour].idJoueur==idJoueur&&Unitejoueurs[VarParcour].active==active){
+            IndiceJoueur=VarParcour;
+        }
+        else{
+            VarParcour++;
+        }
+    }
+    return IndiceJoueur;
+}
 //charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
     FILE *file;
@@ -234,6 +293,25 @@ void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITES
     }
     fclose(file);
 }
+void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][ NB_COLONNES_CARTE], TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char* nomFichier){
+    FILE *file;
+    file=fopen(nomFichier,"r");
+    for (int i = 0; i < NB_LIGNES_CARTE; i++){
+    char ligne[100];
+    fgets(ligne,100,file);
+        for (int j = 0; j < (NB_COLONNES_CARTE*2)-1; j++)
+        {
+            if(strcmp(&ligne[j]," ")!= 0){
+            carte[i][j].idUnite=j+i+1;
+            carte[i][j].idTypeTerrain=typesTerrains[chercherIndiceTypeTerrain(ligne[j],typesTerrains)].idTypeTerrain;
+            carte[i][j].codeAffichageTerrain=ligne[j];
+            }
+        }
+        
+    }
+    fclose(file);
+     
+}
 // affichage functions
 void afficherUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
     for(int i=0;i<nb_lignes;i++){
@@ -284,6 +362,16 @@ void afficherUniteJoueur( UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
             
 
 }
+void afficherCarte(CelluleCarte carte[NB_LIGNES_CARTE][ NB_COLONNES_CARTE]){
+    for (int j = 0; j < NB_LIGNES_CARTE; j++)
+    {
+    for(int i=0;i<NB_COLONNES_CARTE;i++){
+        printf("%d %d %d ||",carte[i][j].idUnite,carte[i][j].idTypeTerrain,carte[i][j].codeAffichageTerrain);
+    }
+    printf("\n");       
+    }
+    
+}
 //sauvegrader functions
 void sauvegarderUnitesMagasin(int nb_lignes,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char* nomFichier){
     FILE *file=fopen(nomFichier,"w");
@@ -331,66 +419,8 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS] 
     }
     fclose(file);
 }
-//recherche functions
-int chercherIndiceJoueur(int idJoueur, int nbLignesReel, Joueur joueurs[MAX_LIGNES_JOUEURS]){
-    int IndiceJoueur=-1;
-    int VarParcour=0;
-    while (VarParcour<nbLignesReel&&IndiceJoueur==-1)
-    {
-        if(joueurs[VarParcour].idJoueur==idJoueur){
-            IndiceJoueur=VarParcour;
-        }
-        else{
-            VarParcour++;
-        }
-    }
-    return IndiceJoueur;
-    
-}
-int chercherIndiceRelationTerrain(int idTypeTerrain, RelationTerrain relationsTerrains[NB_TYPES_TERRAINS]){
-    int IndiceJoueur=-1;
-    int VarParcour=0;
-    while (VarParcour<NB_TYPES_TERRAINS&&IndiceJoueur==-1)
-    {
-        if(relationsTerrains[VarParcour].idTypeTerrain==idTypeTerrain){
-            IndiceJoueur=VarParcour;
-        }
-        else{
-            VarParcour++;
-        }
-    }
-    return IndiceJoueur;
-}
-int chercherIndiceTypeTerrain(char symboleTerrain, TypeTerrain typesTerrains[NB_TYPES_TERRAINS]){
-    int IndiceJoueur=-1;
-    int VarParcour=0;
-    while (VarParcour<NB_TYPES_TERRAINS&&IndiceJoueur==-1)
-    {
-        if(typesTerrains[VarParcour].symboleTerrain==symboleTerrain){
-            IndiceJoueur=VarParcour;
-        }
-        else{
-            VarParcour++;
-        }
-    }
-    return IndiceJoueur;
-}
-int chercherIndiceUniteJoueur(int idUnite,int idJoueur,int active, UniteJoueur Unitejoueurs[MAX_LIGNES_JOUEURS]){
-    int IndiceJoueur=-1;
-    int VarParcour=0;
-    while (VarParcour<MAX_LIGNES_JOUEURS&&IndiceJoueur==-1)
-    {
-        if(Unitejoueurs[VarParcour].idUnite==idUnite&&Unitejoueurs[VarParcour].idJoueur==idJoueur&&Unitejoueurs[VarParcour].active==active){
-            IndiceJoueur=VarParcour;
-        }
-        else{
-            VarParcour++;
-        }
-    }
-    return IndiceJoueur;
-}
+
 void main(){
-    char nomFichier;
     //tables declaration
     UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN];
     TypeTerrain typesTerrains[NB_TYPES_TERRAINS];
@@ -401,6 +431,7 @@ void main(){
     FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES];
     UniteJoueur Unitejoueurs[MAX_LIGNES_JOUEURS];
     UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS];
+    CelluleCarte carte[NB_LIGNES_CARTE][ NB_COLONNES_CARTE];
     // varriables declaration
     int nbUnitesMagasin,IndiceJoueur1,nbVillages,IndiceTypeTerrain,number_ligne_type_terrain,IndiceRelationTerrain,number_ligne_periode,NbJoueur,NbficheTypesUnites,IndiceJoueur;
     //function calls
@@ -411,6 +442,7 @@ void main(){
     NbJoueur=chargerJoueursVersTableau(joueurs,"./files/joueurs_originals.txt");
     NbficheTypesUnites=chargerFichesTypesUnitesVersTableau(fichesTypesUnites,"./files/fichesTypesUnites_original.txt");
     chargerUnitesJoueursVersTableau(unitesJoueurs,"./files/unitesJoueurs_original.txt");
+    chargerCarteVersTableau(carte,typesTerrains,"./files/carte_original.txt");
     afficherUnitesMagasin(nbUnitesMagasin,unitesMagasin);
     afficherVillages(nbVillages, villages);
     afficherTypesTerrains(typesTerrains);
@@ -418,11 +450,8 @@ void main(){
     afficherJoueurs(NbJoueur,joueurs);
     afficherFichesTypesUnites(NbficheTypesUnites,fichesTypesUnites);
     afficherUniteJoueur(unitesJoueurs);
+    afficherCarte(carte);
     sauvegarderVillages(nbVillages,villages,"villages_sauvegarde.txt");
     sauvegarderJoueurs(NbJoueur,joueurs,"joueurs_sauvegarde.txt");
     sauvegarderUniteJoueur(unitesJoueurs,"unitesJoueurs_sauvegarde.txt");
-    IndiceJoueur=chercherIndiceJoueur(1,2,joueurs);
-    IndiceRelationTerrain=chercherIndiceRelationTerrain(1,relationsTerrains);
-    IndiceTypeTerrain=chercherIndiceTypeTerrain('F',typesTerrains);
-    IndiceJoueur1=chercherIndiceUniteJoueur(1,2,1,Unitejoueurs);
 }
