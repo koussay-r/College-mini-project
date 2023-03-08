@@ -283,7 +283,7 @@ int chargerVillagesVersTableau(Village villages[MAX_LIGNES_VILLAGES], char *nomF
 
     return Numbr_lignes;
 }
-int chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char *nomFichier)
+void chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char *nomFichier)
 {
     FILE *file;
     file = fopen(nomFichier, "r");
@@ -303,9 +303,8 @@ int chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS]
     }
     fclose(file);
 
-    return Numbr_lignes;
 }
-int chargerPeriodesVersTableau(Periode periodes[NB_LIGNES_PERIODES], char *nomFichier)
+void chargerPeriodesVersTableau(Periode periodes[NB_LIGNES_PERIODES], char *nomFichier)
 {
     FILE *file;
     file = fopen(nomFichier, "r");
@@ -324,8 +323,6 @@ int chargerPeriodesVersTableau(Periode periodes[NB_LIGNES_PERIODES], char *nomFi
         }
     }
     fclose(file);
-
-    return Numbr_lignes;
 }
 int chargerJoueursVersTableau(Joueur joueurs[MAX_LIGNES_JOUEURS], char *nomFichier)
 {
@@ -410,17 +407,17 @@ void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CAR
     fclose(file);
 }
 // affichage functions
-void afficherUnitesMagasin(int nb_lignes, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN])
+void afficherUnitesMagasin(int nbUnitesMagasin, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN])
 {
-    for (int i = 0; i < nb_lignes; i++)
+    for (int i = 0; i < nbUnitesMagasin; i++)
     {
         printf("%d %d %d \n", unitesMagasin[i].idUniteMagasin, unitesMagasin[0].idFicheTypeUnite, unitesMagasin[i].idJoueurAutorise);
     }
     printf("\n");
 }
-void afficherVillages(int nb_lignes, Village villages[MAX_LIGNES_VILLAGES])
+void afficherVillages(int nbVillages, Village villages[MAX_LIGNES_VILLAGES])
 {
-    for (int i = 0; i < nb_lignes; i++)
+    for (int i = 0; i < nbVillages; i++)
     {
         printf("%d %d %d \n", villages[i].idVillage, villages[0].ligne, villages[i].colonne, villages[i].idJoueurProprietaire);
     }
@@ -547,12 +544,12 @@ void main()
     UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS];
     CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE];
     // varriables declaration
-    int nbUnitesMagasin, IndiceJoueur1, nbVillages, IndiceTypeTerrain, number_ligne_type_terrain, IndiceRelationTerrain, number_ligne_periode, NbJoueur, NbficheTypesUnites, IndiceJoueur;
+    int nbUnitesMagasin, IndiceJoueur1, nbVillages, IndiceTypeTerrain, IndiceRelationTerrain, NbJoueur, NbficheTypesUnites, IndiceJoueur;
     // function calls
     nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "./files/unitesMagasin_original.txt");
     nbVillages = chargerVillagesVersTableau(villages, "./files/villages_original.txt");
-    number_ligne_type_terrain = chargerTypesTerrainsVersTableau(typesTerrains, "./files/typesTerrains_original.txt");
-    number_ligne_periode = chargerPeriodesVersTableau(periodes, "./files/periodes_original.txt");
+    chargerTypesTerrainsVersTableau(typesTerrains, "./files/typesTerrains_original.txt");
+    chargerPeriodesVersTableau(periodes, "./files/periodes_original.txt");
     NbJoueur = chargerJoueursVersTableau(joueurs, "./files/joueurs_originals.txt");
     NbficheTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "./files/fichesTypesUnites_original.txt");
     chargerUnitesJoueursVersTableau(unitesJoueurs, "./files/unitesJoueurs_original.txt");
