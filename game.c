@@ -406,6 +406,24 @@ void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CAR
     }
     fclose(file);
 }
+void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], char* nomFichier){
+    FILE *file;
+    file = fopen(nomFichier, "r");
+    int Numbr_lignes = 0;
+    if (file == NULL)
+    {
+        printf("erreur loading file");
+    }
+    else
+    {
+        while (!feof(file))
+        {
+            fscanf(file,"%d %d %d %s %d %d %d %d %d %d  %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
+            Numbr_lignes++;
+        }
+    }
+    fclose(file);
+}
 // affichage functions
 void afficherUnitesMagasin(int nbUnitesMagasin, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN])
 {
