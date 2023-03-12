@@ -520,12 +520,27 @@ void completerInitialisationUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_U
         if(unitesJoueurs[i].idUnite!=0){
             unitesJoueurs[i].pv=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].pvMax;
             unitesJoueurs[i].pvMax=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].pvMax;
+            unitesJoueurs[i].mouvements=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].mouvementsMax;
             unitesJoueurs[i].mouvementsMax=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].mouvementsMax;
             unitesJoueurs[i].xpRequise=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].xpRequise;
             unitesJoueurs[i].niveau=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].niveau;
             unitesJoueurs[i].alignement=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].alignement;        
         }
     }
+}
+void completerInitialisationJoueurs(int nbJoueurs, int nbVillages,Joueur joueurs[MAX_LIGNES_JOUEURS],Village villages[MAX_LIGNES_VILLAGES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    for (int i = 0; i < nbJoueurs; i++)
+    {
+        int nbvillage=0;
+        for (int j = 0; j < nbVillages; j++)
+        {
+            if(villages[j].idJoueurProprietaire==joueurs[i].idJoueur){
+                nbvillage++;
+            }
+        }
+        joueurs[i].nombreVillages=nbvillage;  
+    }
+    
 }
 // sauvegrader functions
 void sauvegarderUnitesMagasin(int nb_lignes, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
@@ -582,7 +597,32 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],
     }
     fclose(file);
 }
-
+//initiatlisation
+void initialiserNouveauJeu(int *nbfichesTypesUnites, int *nbJoueurs, int *nbUnitesMagasin,int *nbVillages,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES],Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],Village villages[MAX_LIGNES_VILLAGES],TypeTerrain typesTerrains[NB_TYPES_TERRAINS],Periode periodes[NB_LIGNES_PERIODES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    *nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "unitesMagasin_original.txt");
+    *nbVillages = chargerVillagesVersTableau(villages, "villages_original.txt");
+    chargerTypesTerrainsVersTableau(typesTerrains, "typesTerrains_original.txt");
+    chargerPeriodesVersTableau(periodes, "periodes_original.txt");
+    chargerUnitesJoueursVersTableau(unitesJoueurs,"unitesJoueurs_original.txt");
+    *nbJoueurs = chargerJoueursVersTableau(joueurs, "joueurs_originals.txt");
+    *nbfichesTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "fichesTypesUnites_original.txt");
+    chargerCarteVersTableau(carte, typesTerrains, "carte_original.txt");
+    placerUnitesDansCarte( unitesJoueurs,  *nbJoueurs,  joueurs, carte);
+    completerInitialisationUnitesJoueurs(unitesJoueurs,*nbfichesTypesUnites, fichesTypesUnites);
+    completerInitialisationJoueurs(*nbJoueurs,*nbVillages, joueurs,villages,unitesJoueurs);
+}
+void chargerJeuComplet(int *nbFichesTypesUnites, int *nbJoueurs, int *nbUnitesMagasin,int *nbVillages,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES],Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],Village villages[MAX_LIGNES_VILLAGES],TypeTerrain typesTerrains[NB_TYPES_TERRAINS],Periode periodes[NB_LIGNES_PERIODES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+     *nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "unitesMagasin_original.txt");
+    *nbVillages = chargerVillagesVersTableau(villages, "villages_sauvegarde.txt");
+    chargerTypesTerrainsVersTableau(typesTerrains, "typesTerrains_original.txt");
+    chargerPeriodesVersTableau(periodes, "periodes_original.txt");
+    chargerUnitesJoueursVersTableau(unitesJoueurs,"unitesJoueurs_sauvegarde.txt");
+    *nbJoueurs = chargerJoueursVersTableau(joueurs, "joueurs_sauvegarde.txt");
+    *nbFichesTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "fichesTypesUnites_original.txt");
+    chargerCarteVersTableau(carte, typesTerrains, "carte_original.txt");
+    placerUnitesDansCarte( unitesJoueurs,  *nbJoueurs,  joueurs, carte);
+    completerInitialisationJoueurs(*nbJoueurs,*nbVillages, joueurs,villages,unitesJoueurs);
+}
 void main()
 {
     // tables declaration
@@ -597,24 +637,20 @@ void main()
     UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS];
     CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE];
     // varriables declaration
-    int nbUnitesMagasin, IndiceJoueur1, nbVillages, IndiceTypeTerrain, IndiceRelationTerrain, NbJoueur, NbficheTypesUnites, IndiceJoueur;
+    int nbUnitesMagasin, IndiceJoueur1, nbVillages, IndiceTypeTerrain, IndiceRelationTerrain, nbJoueurs, nbfichesTypesUnites, IndiceJoueur;
     // function calls
-    nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "./files/unitesMagasin_original.txt");
-    nbVillages = chargerVillagesVersTableau(villages, "./files/villages_original.txt");
-    chargerTypesTerrainsVersTableau(typesTerrains, "./files/typesTerrains_original.txt");
-    chargerPeriodesVersTableau(periodes, "./files/periodes_original.txt");
-    NbJoueur = chargerJoueursVersTableau(joueurs, "./files/joueurs_originals.txt");
-    NbficheTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "./files/fichesTypesUnites_original.txt");
-    chargerCarteVersTableau(carte, typesTerrains, "./files/carte_original.txt");
+    initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
+    sauvegarderVillages(nbVillages, villages, "villages_sauvegarde.txt");
+    sauvegarderJoueurs(nbJoueurs, joueurs, "joueurs_sauvegarde.txt");
+    sauvegarderUniteJoueur(unitesJoueurs, "unitesJoueurs_sauvegarde.txt");
+    chargerJeuComplet(&nbfichesTypesUnites, &nbJoueurs, &nbUnitesMagasin,&nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherUnitesMagasin(nbUnitesMagasin, unitesMagasin);
     afficherVillages(nbVillages, villages);
     afficherTypesTerrains(typesTerrains);
     afficherPeriodes(periodes);
-    afficherJoueurs(NbJoueur, joueurs);
-    afficherFichesTypesUnites(NbficheTypesUnites, fichesTypesUnites);
+    afficherJoueurs(nbJoueurs, joueurs);
+    afficherFichesTypesUnites(nbfichesTypesUnites, fichesTypesUnites);
     afficherUniteJoueur(unitesJoueurs);
     afficherCarte(carte);
-    sauvegarderVillages(nbVillages, villages, "villages_sauvegarde.txt");
-    sauvegarderJoueurs(NbJoueur, joueurs, "joueurs_sauvegarde.txt");
-    sauvegarderUniteJoueur(unitesJoueurs, "unitesJoueurs_sauvegarde.txt");
+
 }
