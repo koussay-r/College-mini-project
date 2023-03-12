@@ -291,7 +291,6 @@ void chargerTypesTerrainsVersTableau(TypeTerrain typesTerrains[NB_TYPES_TERRAINS
     if (file == NULL)
     {
         printf("erreur loading file");
-        return 0;
     }
     else
     {
@@ -312,7 +311,6 @@ void chargerPeriodesVersTableau(Periode periodes[NB_LIGNES_PERIODES], char *nomF
     if (file == NULL)
     {
         printf("erreur loading file");
-        return 0;
     }
     else
     {
@@ -381,7 +379,7 @@ void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITES
     {
         while (!feof(file))
         {
-            fscanf(file,"%d %d %d %s %d %d %d %d %d %d  %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
+            fscanf(file,"%d %d %d %s %d %d %d %d %d %d %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
             Numbr_lignes++;
         }
     }
@@ -419,6 +417,7 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
         while (!feof(file))
         {
             fscanf(file,"%d %d %d %s %d %d %d %d %d %d  %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
+            printf("behy");
             Numbr_lignes++;
         }
     }
@@ -490,6 +489,42 @@ void afficherCarte(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE])
             printf("%d %d ||",carte[i][j].idTypeTerrain, carte[i][j].codeAffichageTerrain);
         }
         printf("\n");
+    }
+}
+//appliquer et placer
+void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+
+}
+int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    char value="n";
+    for(int i=0;i<size;i++){
+        if(joueurs[i].idJoueur==idJoueur){
+            value=joueurs[i].symbole;
+        }
+    }
+    if(value=="n"){
+        return "";
+    }
+    else{
+        return value;
+    }
+}
+void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
+    for(int i=0;i<nbJoueurs;i++){
+        carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
+        carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].symboleJoueur=rechercheIdJoueur(unitesJoueurs[i].idJoueur,sizeof(joueurs),joueurs);
+    }
+}
+void completerInitialisationUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],int nbFichesTypesUnites, FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
+    for (int i=0;i<nbFichesTypesUnites;i++){
+        if(unitesJoueurs[i].idUnite!=0){
+            unitesJoueurs[i].pv=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].pvMax;
+            unitesJoueurs[i].pvMax=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].pvMax;
+            unitesJoueurs[i].mouvementsMax=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].mouvementsMax;
+            unitesJoueurs[i].xpRequise=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].xpRequise;
+            unitesJoueurs[i].niveau=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].niveau;
+            unitesJoueurs[i].alignement=fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesJoueurs[i].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites)].alignement;        
+        }
     }
 }
 // sauvegrader functions
@@ -570,7 +605,6 @@ void main()
     chargerPeriodesVersTableau(periodes, "./files/periodes_original.txt");
     NbJoueur = chargerJoueursVersTableau(joueurs, "./files/joueurs_originals.txt");
     NbficheTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "./files/fichesTypesUnites_original.txt");
-    chargerUnitesJoueursVersTableau(unitesJoueurs, "./files/unitesJoueurs_original.txt");
     chargerCarteVersTableau(carte, typesTerrains, "./files/carte_original.txt");
     afficherUnitesMagasin(nbUnitesMagasin, unitesMagasin);
     afficherVillages(nbVillages, villages);

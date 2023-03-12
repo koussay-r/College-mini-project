@@ -1,6 +1,0 @@
-1  0 0 0 
-2 jour_matin 25 -25 25 
-3 jour_apr 25 -25 -25 
-4 crepiscule 0 0 0 
-5 nuit_premier_quart -25 25 -25 
-6 nuit_deu -25 25 -25 
