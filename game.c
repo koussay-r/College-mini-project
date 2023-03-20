@@ -378,8 +378,7 @@ void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITES
     {
         while (!feof(file))
         {
-            fscanf(file,"%d %d %d %s %d %d %d %d %d %d %d",&unitesJoueurs[Numbr_lignes].idUnite,&unitesJoueurs[Numbr_lignes].idFicheTypeUnite,&unitesJoueurs[Numbr_lignes].idJoueur,unitesJoueurs[Numbr_lignes].nomUnite,&unitesJoueurs[Numbr_lignes].active,&unitesJoueurs[Numbr_lignes].rang,&unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
-            printf("%d %d %d %s %d %d %d %d %d %d  %d",unitesJoueurs[Numbr_lignes].idUnite,unitesJoueurs[Numbr_lignes].idFicheTypeUnite,unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite,unitesJoueurs[Numbr_lignes].active,unitesJoueurs[Numbr_lignes].rang,unitesJoueurs[Numbr_lignes].ligne,unitesJoueurs[Numbr_lignes].colonne, unitesJoueurs[Numbr_lignes].traits[0], unitesJoueurs[Numbr_lignes].traits[1], unitesJoueurs[Numbr_lignes].traits[2]);           
+            fscanf(file,"%d %d %d %s %d %d %d %d %d %d %d",&unitesJoueurs[Numbr_lignes].idUnite,&unitesJoueurs[Numbr_lignes].idFicheTypeUnite,&unitesJoueurs[Numbr_lignes].idJoueur,unitesJoueurs[Numbr_lignes].nomUnite,&unitesJoueurs[Numbr_lignes].active,&unitesJoueurs[Numbr_lignes].rang,&unitesJoueurs[Numbr_lignes].ligne,&unitesJoueurs[Numbr_lignes].colonne,&unitesJoueurs[Numbr_lignes].traits[0],&unitesJoueurs[Numbr_lignes].traits[1],&unitesJoueurs[Numbr_lignes].traits[2]);
             Numbr_lignes++;
         }
     }
@@ -406,7 +405,7 @@ void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CAR
 }
 void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], char* nomFichier){
     FILE *file;
-    file = fopen(nomFichier, "r");
+    file = fopen(nomFichier,"r");
     int Numbr_lignes = 0;
     if (file == NULL)
     {
@@ -416,8 +415,9 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
     {
         while (!feof(file))
         {
-            fscanf(file,"%d %d %d %s %d %d %d %d %d %d  %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
+            fscanf(file,"%d %d %d %s %d %d %d %d %d %d %d", &unitesJoueurs[Numbr_lignes].idUnite, &unitesJoueurs[Numbr_lignes].idFicheTypeUnite, &unitesJoueurs[Numbr_lignes].idJoueur, unitesJoueurs[Numbr_lignes].nomUnite, &unitesJoueurs[Numbr_lignes].active, &unitesJoueurs[Numbr_lignes].rang, &unitesJoueurs[Numbr_lignes].ligne, &unitesJoueurs[Numbr_lignes].colonne, &unitesJoueurs[Numbr_lignes].traits[0], &unitesJoueurs[Numbr_lignes].traits[1], &unitesJoueurs[Numbr_lignes].traits[2]);
             Numbr_lignes++;
+
         }
     }
     fclose(file);
@@ -475,7 +475,7 @@ void afficherUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS])
 {
     for (int i = 0; i < MAX_LIGNES_UNITESJOUEURS; i++)
     {
-        printf("%d %d %d %s %d %d %d %d %d %d %d\n", unitesJoueurs[i].idUnite, unitesJoueurs[i].idFicheTypeUnite, unitesJoueurs[i].idJoueur, unitesJoueurs[i].nomUnite, unitesJoueurs[i].active, unitesJoueurs[i].rang, unitesJoueurs[i].ligne, unitesJoueurs[i].colonne, unitesJoueurs[i].traits[0], unitesJoueurs[i].traits[1], unitesJoueurs[i].traits[2]);
+        printf("%d %d %d %s %d %d %d %d %d %d %d\n",unitesJoueurs[i].idUnite,unitesJoueurs[i].idFicheTypeUnite,unitesJoueurs[i].idJoueur,unitesJoueurs[i].nomUnite,unitesJoueurs[i].active,unitesJoueurs[i].rang,unitesJoueurs[i].ligne,unitesJoueurs[i].colonne,unitesJoueurs[i].traits[0],unitesJoueurs[i].traits[1],unitesJoueurs[i].traits[2]);
     }
     printf("\n");
 }
@@ -545,39 +545,15 @@ void completerInitialisationJoueurs(int nbJoueurs, int nbVillages,Joueur joueurs
     
 }
 // sauvegrader functions
-void sauvegarderUnitesMagasin(int nb_lignes, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
-{
-    FILE *file = fopen(nomFichier, "w");
-    for (int i = 0; i < nb_lignes; i++)
-    {
-        fprintf(file, "%d %d %d\n", unitesMagasin[i].idUniteMagasin, unitesMagasin[i].idFicheTypeUnite, unitesMagasin[i].idJoueurAutorise);
-    }
-    fclose(file);
-}
 void sauvegarderVillages(int nbVillages, Village villages[MAX_LIGNES_VILLAGES], char *nomFichier)
 {
     FILE *file = fopen(nomFichier, "w");
     for (int i = 0; i < nbVillages; i++)
     {
-        fprintf(file, "%d %d %d\n", villages[i].idVillage, villages[i].ligne, villages[i].colonne, villages[i].idJoueurProprietaire);
-    }
-    fclose(file);
-}
-void sauvegarderTypesTerrains(int nb_lignes, TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char *nomFichier)
-{
-    FILE *file = fopen(nomFichier, "w");
-    for (int i = 0; i < nb_lignes; i++)
-    {
-        fprintf(file, "%d %s %d %s\n", typesTerrains[i].idTypeTerrain, typesTerrains[i].symboleTerrain, typesTerrains[i].codeAffichageTerrain, typesTerrains[i].nomTerrain);
-    }
-    fclose(file);
-}
-void sauvegarderPeriodes(int nbLignes, Periode periodes[NB_LIGNES_PERIODES], char *nomFichier)
-{
-    FILE *file = fopen(nomFichier, "w");
-    for (int i = 0; i < nbLignes; i++)
-    {
-        fprintf(file, "%d %s %d %d %d \n", periodes[i].numOrdre, periodes[i].moment, periodes[i].bonus[0], periodes[i].bonus[1], periodes[i].bonus[2], periodes[i].bonus[3]);
+        fprintf(file,"%d %d %d", villages[i].idVillage, villages[i].ligne, villages[i].colonne, villages[i].idJoueurProprietaire);
+        if(i!=nbVillages-1){
+        fprintf(file,"\n");
+        }
     }
     fclose(file);
 }
@@ -586,7 +562,10 @@ void sauvegarderJoueurs(int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], char 
     FILE *file = fopen(nomFichier, "w");
     for (int i = 0; i < nbJoueurs; i++)
     {
-        fprintf(file, "%d %c %d %d\n", joueurs[i].idJoueur, joueurs[i].symbole, joueurs[i].or, joueurs[i].groupe_allies);
+        fprintf(file,"%d %c %d %d", joueurs[i].idJoueur, joueurs[i].symbole, joueurs[i].or, joueurs[i].groupe_allies);
+        if(i!=nbJoueurs-1){
+        fprintf(file,"\n");
+        }
     }
     fclose(file);
 }
@@ -595,7 +574,10 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],
     FILE *file = fopen(nomFichier, "w");
     for (int i = 0; i < MAX_LIGNES_UNITESJOUEURS; i++)
     {
-        fprintf(file, "%d %d %d %s %d %d %d %d %d %d %d\n", unitesJoueurs[i].idUnite, unitesJoueurs[i].idFicheTypeUnite, unitesJoueurs[i].idJoueur, unitesJoueurs[i].nomUnite, unitesJoueurs[i].active, unitesJoueurs[i].rang, unitesJoueurs[i].ligne, unitesJoueurs[i].colonne, unitesJoueurs[i].traits[0], unitesJoueurs[i].traits[1], unitesJoueurs[i].traits[2]);
+        fprintf(file,"%d %d %d %s %d %d %d %d %d %d %d", unitesJoueurs[i].idUnite, unitesJoueurs[i].idFicheTypeUnite, unitesJoueurs[i].idJoueur, unitesJoueurs[i].nomUnite, unitesJoueurs[i].active, unitesJoueurs[i].rang, unitesJoueurs[i].ligne, unitesJoueurs[i].colonne, unitesJoueurs[i].traits[0], unitesJoueurs[i].traits[1], unitesJoueurs[i].traits[2]);
+        if(i!=MAX_LIGNES_UNITESJOUEURS-1){
+        fprintf(file,"\n");
+        }
     }
     fclose(file);
 }
