@@ -79,6 +79,7 @@ typedef struct
     int idJoueur;
     char symbole; // cas par défaut : J : joueur humain, E : joueur ennemi
     int or ;
+    int type;
     int groupe_allies; // 1 : alliés joueur humain, 2 : alliés joueur pc ennemi
     int nombreVillages;
     int nombreUnites;
@@ -238,7 +239,27 @@ int possedeTrait(int trait, int traits[MAX_TRAITS]){
     }
     return possedeTrait;
 }
+int chercherIndiceJoueurHumain(int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    int indice=-1;
+    for (int i = 0; i < nbJoueurs; i++)
+    {
+        if(joueurs[i].idJoueur==1){
+            indice=i;
 
+        }
+    }
+    
+}
+int chercherIndiceVillage(int ligne, int colonne, int nbVillages, Village villages[MAX_LIGNES_VILLAGES]){
+    int indice=-1;
+    for (int i = 0; i < nbVillages; i++)
+    {
+        if(villages[i].colonne==colonne&&villages[i].ligne==ligne){
+            indice=i;
+        }
+    }
+    return indice;    
+}
 // charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
 {
@@ -336,7 +357,7 @@ int chargerJoueursVersTableau(Joueur joueurs[MAX_LIGNES_JOUEURS], char *nomFichi
     {
         while (!feof(file))
         {
-            fscanf(file, "%d %c %d %d", &joueurs[Numbr_lignes].idJoueur, &joueurs[Numbr_lignes].symbole, &joueurs[Numbr_lignes].or, &joueurs[Numbr_lignes].groupe_allies);
+            fscanf(file, "%d %c %d %d %d", &joueurs[Numbr_lignes].idJoueur, &joueurs[Numbr_lignes].symbole, &joueurs[Numbr_lignes].or,&joueurs[Numbr_lignes].type, &joueurs[Numbr_lignes].groupe_allies);
             Numbr_lignes++;
         }
     }
