@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 // constants
 #define NB_LIGNES_CARTE 30
 #define NB_COLONNES_CARTE 38
@@ -260,6 +261,17 @@ int chercherIndiceVillage(int ligne, int colonne, int nbVillages, Village villag
     }
     return indice;    
 }
+int max(int a,int b){
+    if(a>b){
+        return a;
+    }
+    else if(b>=a){
+        return b;
+    }
+}
+void miseAJourJoueurApresOccupationVillage(int indiceJoueur, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    joueurs[indiceJoueur].revenu=2+joueurs[indiceJoueur].nombreVillages-(max(0,joueurs[indiceJoueur].entretien-joueurs[indiceJoueur].nombreVillages));
+}
 // charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
 {
@@ -511,6 +523,9 @@ void afficherCarte(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE])
         printf("\n");
     }
 }
+void afficherJoueurJeu(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    printf("*** JOUEUR ***\n-----------------------------------------------------------------------------------------\n| idJoueur | symbole | or | type | grallies | nbVillages | nbUnites | entretien | revenu |\n-----------------------------------------------------------------------------------------\n| %d | %c | %d | %d | %d | %d | %d | %d | %d |\n-----------------------------------------------------------------------------------------\n",joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].idJoueur,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].symbole,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].or,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].type,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].groupe_allies,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].nombreVillages,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].nombreUnites,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].entretien,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].revenu);
+}
 //appliquer et placer
 void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
 
@@ -664,6 +679,7 @@ void main()
     scanf("%d",&menu);
     if(menu==1){
     initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
+    afficherJoueurJeu(48,2,joueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
     else if(menu==2){
