@@ -548,10 +548,15 @@ void afficherJoueurJeu(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JO
     printf("*** JOUEUR ***\n-----------------------------------------------------------------------------------------\n| idJoueur | symbole|   or   |  type |grallies|nbVillages|nbUnites|entretien| revenu |\n-----------------------------------------------------------------------------------------\n|    %d    |   %c    |   %d  |   %d   |   %d    |    %d    |   %d   |   %d   |   %d   |\n-----------------------------------------------------------------------------------------\n",joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].idJoueur,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].symbole,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].or,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].type,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].groupe_allies,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].nombreVillages,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].nombreUnites,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].entretien,joueurs[chercherIndiceJoueur(idJoueur,nbJoueurs,joueurs)].revenu);
 }
 void afficherUnitesJoueursJeu(int idJoueur, int active, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
-        printf("*** UNITES ***\n-----------------------------------------------------------------------------------------\n| idUnite | idFicheUni | idJoueur | nomUnite | active | rang | ligne | colonne | trait1 | trait2 | trait3 | pv | pvMax | mouvements | mouvementsMax | xp | xpRequise | niveau | alignement | finTour |");
+        printf("*** UNITES ***\n--------------------------------------------------------------------------------------------------------------------------------------------------------------\n|idUnite|idFicheUni|idJoueur|nomUnite|active|rang|ligne|colonne|trait1|trait2|trait3|pv|pvMax|mouvements|mouvementsMax|xp|xpRequise|niveau|alignement|finTour|\n");
         for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
-        printf("\n-----------------------------------------------------------------------------------------\n| %d | %d| %d | %s | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d |\n-----------------------------------------------------------------------------------------\n",unitesJoueurs[i].idUnite,unitesJoueurs[i].idFicheTypeUnite,unitesJoueurs[i].idJoueur,unitesJoueurs[i].nomUnite,unitesJoueurs[i].active,unitesJoueurs[i].rang,unitesJoueurs[i].ligne,unitesJoueurs[i].colonne,unitesJoueurs[i].traits[0],unitesJoueurs[i].traits[1],unitesJoueurs[i].traits[2],unitesJoueurs[i].pv,unitesJoueurs[i].pvMax,unitesJoueurs[i].mouvements,unitesJoueurs[i].mouvementsMax,unitesJoueurs[i].xp,unitesJoueurs[i].xpRequise,unitesJoueurs[i].niveau,unitesJoueurs[i].alignement,unitesJoueurs[i].finTour);
+            if(idJoueur==unitesJoueurs[i].idJoueur&&active==unitesJoueurs[i].active){
+        printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------\n|  %d   |   %d    |   %d   |   %s   |  %d   | %d |  %d |  %d   |  %d  |  %d  |  %d  | %d | %d |    %d    |    %d    |   %d   |   %d   |   %d   |   %d   |   %d   |\n",unitesJoueurs[i].idUnite,unitesJoueurs[i].idFicheTypeUnite,unitesJoueurs[i].idJoueur,unitesJoueurs[i].nomUnite,unitesJoueurs[i].active,unitesJoueurs[i].rang,unitesJoueurs[i].ligne,unitesJoueurs[i].colonne,unitesJoueurs[i].traits[0],unitesJoueurs[i].traits[1],unitesJoueurs[i].traits[2],unitesJoueurs[i].pv,unitesJoueurs[i].pvMax,unitesJoueurs[i].mouvements,unitesJoueurs[i].mouvementsMax,unitesJoueurs[i].xp,unitesJoueurs[i].xpRequise,unitesJoueurs[i].niveau,unitesJoueurs[i].alignement,unitesJoueurs[i].finTour);
+            }
         }
+}
+void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], int nbVillages, Village villages[MAX_LIGNES_VILLAGES], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    
 }
 //appliquer et placer
 void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
@@ -707,7 +712,7 @@ void main()
     if(menu==1){
     initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
-    afficherUnitesJoueursJeu(1, 1,unitesJoueurs)
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
     else if(menu==2){
