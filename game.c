@@ -420,7 +420,7 @@ int chargerFichesTypesUnitesVersTableau(FicheTypeUnite fichesTypesUnites[MAX_LIG
 
     return Numbr_lignes;
 }
-void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], char *nomFichier)
+int chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], char *nomFichier)
 {
     FILE *file;
     file = fopen(nomFichier, "r");
@@ -438,6 +438,7 @@ void chargerUnitesJoueursVersTableau(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITES
         }
     }
     fclose(file);
+    return Numbr_lignes;
 }
 void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], TypeTerrain typesTerrains[NB_TYPES_TERRAINS], char *nomFichier)
 {
@@ -587,6 +588,7 @@ int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     
 }
 void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
+    /*hthy makch mdeposiha*/
     for(int i=0;i<nbJoueurs;i++){
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
         printf("hetha lgyto");
@@ -668,15 +670,17 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],
 }
 //initiatlisation
 void initialiserNouveauJeu(int *nbfichesTypesUnites, int *nbJoueurs, int *nbUnitesMagasin,int *nbVillages,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES],Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],Village villages[MAX_LIGNES_VILLAGES],TypeTerrain typesTerrains[NB_TYPES_TERRAINS],Periode periodes[NB_LIGNES_PERIODES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    /*hthy makch mdeposiha*/
+    int numbr_unites;
     *nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "unitesMagasin_original.txt");
     *nbVillages = chargerVillagesVersTableau(villages, "villages_original.txt");
-    chargerUnitesJoueursVersTableau( unitesJoueurs,"unitesJoueurs_original.txt");
+    numbr_unites=chargerUnitesJoueursVersTableau( unitesJoueurs,"unitesJoueurs_original.txt");
     chargerTypesTerrainsVersTableau(typesTerrains, "typesTerrains_original.txt");
     chargerPeriodesVersTableau(periodes, "periodes_original.txt");
     *nbJoueurs = chargerJoueursVersTableau(joueurs, "joueurs_originals.txt");
     *nbfichesTypesUnites = chargerFichesTypesUnitesVersTableau(fichesTypesUnites, "fichesTypesUnites_original.txt");
     chargerCarteVersTableau(carte, typesTerrains, "carte_original.txt");
-    placerUnitesDansCarte( unitesJoueurs,  *nbJoueurs,  joueurs, carte);
+    placerUnitesDansCarte( unitesJoueurs,  numbr_unites,  joueurs, carte);
     completerInitialisationUnitesJoueurs(unitesJoueurs,*nbfichesTypesUnites, fichesTypesUnites);
     completerInitialisationJoueurs(*nbJoueurs,*nbVillages, joueurs,villages,unitesJoueurs);
 }
