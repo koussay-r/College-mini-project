@@ -452,8 +452,7 @@ void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CAR
             if (strcmp(&ligne[j], " ") != 0)
             {
                 carte[i][j].idTypeTerrain = typesTerrains[chercherIndiceTypeTerrain(ligne[j], typesTerrains)].idTypeTerrain;
-                carte[i][j].codeAffichageTerrain = ligne[j];
-                printf("%d %d\n",carte[i][j].idTypeTerrain,carte[i][j].codeAffichageTerrain);
+                carte[i][j].codeAffichageTerrain = typesTerrains[chercherIndiceTypeTerrain(ligne[j], typesTerrains)].codeAffichageTerrain;
             }
         }
     }
@@ -567,6 +566,7 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
             }
             else{
                 printf("|%c %c%d",carte[i][j].codeAffichageTerrain,carte[i][j].symboleJoueur,carte[i][j].idUnite);
+                printf("1 hey");
             }
         }
     }
@@ -574,6 +574,9 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
 //appliquer et placer
 void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
 
+}
+void marquerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],int ligneCourante, int colonneCourante, int mouvements){
+    
 }
 int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     for(int i=0;i<size;i++){
@@ -586,6 +589,7 @@ int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
 void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
     for(int i=0;i<nbJoueurs;i++){
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
+        printf("hetha lgyto");
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].symboleJoueur=rechercheIdJoueur(unitesJoueurs[i].idJoueur,MAX_LIGNES_JOUEURS,joueurs);
     }
 }
