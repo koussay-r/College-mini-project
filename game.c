@@ -559,6 +559,10 @@ void afficherUnitesJoueursJeu(int idJoueur, int active, UniteJoueur unitesJoueur
         }
 }
 void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], int nbVillages, Village villages[MAX_LIGNES_VILLAGES], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    /*hthy makch mdeposiha*/
+    for(int f=0;f<NB_COLONNES_CARTE;f++){
+        printf("%d       ",f+1);
+    }
     for(int i=0;i<NB_LIGNES_CARTE;i++){
             printf("----------------------------------------------------------------------------------------------------------------------------------------------\n");
             printf("%d",i+1);
