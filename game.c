@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+
 // constants
 #define NB_LIGNES_CARTE 30
 #define NB_COLONNES_CARTE 38
