@@ -559,7 +559,6 @@ void afficherUnitesJoueursJeu(int idJoueur, int active, UniteJoueur unitesJoueur
         }
 }
 void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], int nbVillages, Village villages[MAX_LIGNES_VILLAGES], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
-    /*hthy makch mdeposiha*/
     for(int f=0;f<NB_COLONNES_CARTE;f++){
         printf("%d       ",f+1);
     }
@@ -567,7 +566,7 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
             printf("----------------------------------------------------------------------------------------------------------------------------------------------\n");
             printf("%d",i+1);
         for(int j=0;j<NB_COLONNES_CARTE;j++){
-            if(carte[i][j].idUnite==0){
+            if(carte[i][j].idUnite==0&&carte[i][j].marque==0){
             printf("|%c    ",carte[i][j].codeAffichageTerrain);
             }
             else if(carte[i][j].marque==1&&carte[i][j].idUnite==0){
@@ -584,7 +583,6 @@ void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[
 
 }
 void marquerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],int ligneCourante, int colonneCourante, int mouvements){
-    /*mch depose*/
     int pos=0;
     int flip=0;
         for(int i=ligneCourante-4;i<ligneCourante+5;i++){
@@ -610,10 +608,8 @@ int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     
 }
 void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
-    /*mch depose*/
     for(int i=0;i<nbJoueurs;i++){
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
-        printf("hetha lgyto");
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].symboleJoueur=rechercheIdJoueur(unitesJoueurs[i].idJoueur,MAX_LIGNES_JOUEURS,joueurs);
     }
 }
