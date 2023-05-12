@@ -570,9 +570,11 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
             if(carte[i][j].idUnite==0){
             printf("|%c    ",carte[i][j].codeAffichageTerrain);
             }
+            else if(carte[i][j].marque==1&&carte[i][j].idUnite==0){
+            printf("|%c  ++",carte[i][j].codeAffichageTerrain);
+            }
             else{
                 printf("|%c %c%d",carte[i][j].codeAffichageTerrain,carte[i][j].symboleJoueur,carte[i][j].idUnite);
-                printf("1 hey");
             }
         }
     }
@@ -582,8 +584,23 @@ void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[
 
 }
 void marquerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],int ligneCourante, int colonneCourante, int mouvements){
-    
-}
+    /*mch depose*/
+    int pos=0;
+    int flip=0;
+        for(int i=ligneCourante-4;i<ligneCourante+5;i++){
+            for(int j=colonneCourante-pos;j<colonneCourante+pos+1;j++){
+                carte[i][j].marque=1;
+                printf("\n j= %d\n",j);
+            }
+            if(pos<5&&flip==0){
+            pos++;
+            }
+            else{
+                flip=1;
+                pos--;
+            }
+        }
+    }
 int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     for(int i=0;i<size;i++){
         if(joueurs[i].idJoueur==idJoueur){
@@ -593,7 +610,7 @@ int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     
 }
 void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
-    /*hthy makch mdeposiha*/
+    /*mch depose*/
     for(int i=0;i<nbJoueurs;i++){
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
         printf("hetha lgyto");
@@ -675,7 +692,7 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],
 }
 //initiatlisation
 void initialiserNouveauJeu(int *nbfichesTypesUnites, int *nbJoueurs, int *nbUnitesMagasin,int *nbVillages,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES],Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],Village villages[MAX_LIGNES_VILLAGES],TypeTerrain typesTerrains[NB_TYPES_TERRAINS],Periode periodes[NB_LIGNES_PERIODES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
-    /*hthy makch mdeposiha*/
+    /*mch depose*/
     int numbr_unites;
     *nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "unitesMagasin_original.txt");
     *nbVillages = chargerVillagesVersTableau(villages, "villages_original.txt");
@@ -739,7 +756,8 @@ void main()
     initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
-     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    marquerDeplacementsPossibles( carte,21,30,4);
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
     else if(menu==2){
