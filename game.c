@@ -588,7 +588,6 @@ void marquerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNE
         for(int i=ligneCourante-4;i<ligneCourante+5;i++){
             for(int j=colonneCourante-pos;j<colonneCourante+pos+1;j++){
                 carte[i][j].marque=1;
-                printf("\n j= %d\n",j);
             }
             if(pos<5&&flip==0){
             pos++;
@@ -599,6 +598,15 @@ void marquerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNE
             }
         }
     }
+void effacerDeplacementsPossibles(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
+    for(int i=0;i<NB_LIGNES_CARTE;i++){
+        for(int j=0;j<NB_COLONNES_CARTE;j++){
+            if(carte[i][j].marque==1){
+                carte[i][j].marque=0;
+            }
+        }
+    }
+}
 int rechercheIdJoueur(int idJoueur,int size,Joueur joueurs[MAX_LIGNES_JOUEURS]){
     for(int i=0;i<size;i++){
         if(joueurs[i].idJoueur==idJoueur){
@@ -752,9 +760,21 @@ void main()
     initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
-    marquerDeplacementsPossibles( carte,21,30,4);
+    int ligne,colonne;
+    printf("\nentrer la ligne et la colone du joueur pour marker les deplacements possible\n");
+    scanf("%d %d",&ligne,&colonne);
+    marquerDeplacementsPossibles( carte,ligne,colonne,4);
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    printf("\nclickez 1 si vous voulez effacer les deplacement possibles 0 si vous voulez continuer\n");
+    int effaceDeplacement;
+    scanf("%d",&effaceDeplacement);
+    if(effaceDeplacement==1){
+        effacerDeplacementsPossibles(carte);
+    }
+    else{
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
+    }
     }
     else if(menu==2){
     chargerJeuComplet(&nbfichesTypesUnites, &nbJoueurs, &nbUnitesMagasin,&nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
