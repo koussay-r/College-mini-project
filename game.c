@@ -3,6 +3,10 @@
 #include <math.h>
 
 // constants
+#define ID_TYPE_TERRAIN_CHATEAU 1
+#define ID_TYPE_TERRAIN_VILLAGE 16
+#define ID_TYPE_TERRAIN_DONJON 17
+#define MAX_ELOIGNEMENT_CHATEAU_DONJON 2
 #define NB_LIGNES_CARTE 30
 #define NB_COLONNES_CARTE 38
 #define MAX_LIGNES_JOUEURS 5
@@ -619,6 +623,11 @@ void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], 
     for(int i=0;i<nbJoueurs;i++){
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].idUnite=unitesJoueurs[i].idUnite;
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].symboleJoueur=rechercheIdJoueur(unitesJoueurs[i].idJoueur,MAX_LIGNES_JOUEURS,joueurs);
+    }
+}
+void deplacerUnite(int numJoueur, int indiceDansUnitesJoueurs, int numUnite, int ligne_courante, int colonne_courante, int nouvelle_ligne, int nouvelle_colonne, int nbJoueurs, int nbVillages, CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Village villages[MAX_LIGNES_VILLAGES]){
+    if(carte[ligneCourante][colonne_courante].marque==1&&carte[ligne_courante][colonne_courante].idUnite==0){
+        
     }
 }
 void completerInitialisationUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],int nbFichesTypesUnites, FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
