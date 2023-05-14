@@ -299,6 +299,34 @@ int chercherIndiceChefUnitesJoueurs(int idJoueur,UniteJoueur unitesJoueurs[MAX_L
         return pos;
     }
 }
+int verifierFinTours(int idJoueur, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    /*Si fintour = 1, alors toutes les unités ont fini leur tour*/    
+    /*mchk m3aytlha fel main*/
+    int fintour=1;
+    for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+        if(unitesJoueurs[i].idJoueur==idJoueur){
+            if(unitesJoueurs[i].finTour==0){
+                fintour=0;
+            }
+        }
+    }
+    return fintour;
+}
+void reinitialiserTours(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+    /*mchk m3aytlha fel main*/
+    for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+        unitesJoueurs[i].finTour=0;
+        unitesJoueurs[i].mouvements=unitesJoueurs[i].mouvementsMax;
+    }
+    for(int j=0;j<nbJoueurs;i++){
+        if(joueurs[j].idJoueur==idJoueur){
+            joueurs[j].or=joueurs[j].or+8;
+        }
+    }
+}
+int chercherIndiceUniteMagasin(int idUnite, int nbUnitesMagasin, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
+
+}
 // charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
 {
@@ -625,12 +653,13 @@ void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], 
         carte[unitesJoueurs[i].ligne][unitesJoueurs[i].colonne].symboleJoueur=rechercheIdJoueur(unitesJoueurs[i].idJoueur,MAX_LIGNES_JOUEURS,joueurs);
     }
 }
-void deplacerUnite(int numJoueur, int indiceDansUnitesJoueurs, int numUnite, int ligne_courante, int colonne_courante, int nouvelle_ligne, int nouvelle_colonne, int nbJoueurs, int nbVillages, CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Village villages[MAX_LIGNES_VILLAGES]){
-    if(carte[ligne_courante][colonne_courante].marque==1&&carte[ligne_courante][colonne_courante].idUnite==0){
+void deplacerUnite(int idJoueur, int indiceDansUnitesJoueurs, int numUnite, int ligne_courante, int colonne_courante, int nouvelle_ligne, int nouvelle_colonne, int nbJoueurs, int nbVillages, CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Village villages[MAX_LIGNES_VILLAGES]){
+    /*a3mllelha appel fy main o zyd  deposeha*/
+    if(carte[nouvelle_ligne][nouvelle_colonne].marque==1&&carte[ligne_courante][colonne_courante].idUnite!=0&&carte[nouvelle_ligne][nouvelle_colonne].idUnite==0){
         for(int i=0;i<nbVillages;i++){
             if(villages[i].ligne==nouvelle_ligne&&villages[i].colonne==nouvelle_colonne){
                 if(villages[i].idJoueurProprietaire==0){
-                    miseAJourJoueurApresOccupationVillage(numJoueur,joueurs);
+                    miseAJourJoueurApresOccupationVillage(idJoueur,joueurs);
                 }
             }
         }
