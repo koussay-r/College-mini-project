@@ -805,22 +805,29 @@ void main()
     scanf("%d",&menu);
     if(menu==1){
     initialiserNouveauJeu(&nbfichesTypesUnites,&nbJoueurs,&nbUnitesMagasin,&nbVillages,fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
+    afficherTableauxJeu( nbfichesTypesUnites,  nbJoueurs, nbUnitesMagasin, nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     int ligne,colonne;
     printf("\nentrer la ligne et la colone du joueur pour marker les deplacements possible\n");
     scanf("%d %d",&ligne,&colonne);
     marquerDeplacementsPossibles( carte,ligne,colonne,4);
+    afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
-    printf("\nclickez 1 si vous voulez effacer les deplacement possibles 0 si vous voulez continuer 2 si vous voulez deplacer un joueur\n");
+    printf("\nclickez 1 si vous voulez effacer les deplacement possibles 0 si vous voulez continuer 2 si vous voulez deplacer un joueur \n");
     int effaceDeplacement;
     scanf("%d",&effaceDeplacement);
     if(effaceDeplacement==1){
         effacerDeplacementsPossibles(carte);
+            afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
     else if (effaceDeplacement==0){
+            afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
@@ -834,6 +841,25 @@ void main()
             }
         }
     effacerDeplacementsPossibles(carte);
+        afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
+    }
+    int tour;
+    printf("\nentrer 1 si vous voulez reinitialiser Tours ou 0 si vous voulez verifier\n");
+    scanf("%d",&tour);
+    if(tour==0){
+         verifierFinTours(1, unitesJoueurs);
+         afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
+
+    }else if(tour==1){
+         reinitialiserTours( 1, nbJoueurs, joueurs, unitesJoueurs);
+         afficherJoueurJeu(48,2,joueurs);
+    afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
@@ -841,5 +867,4 @@ void main()
     else if(menu==2){
     chargerJeuComplet(&nbfichesTypesUnites, &nbJoueurs, &nbUnitesMagasin,&nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     }
-    afficherTableauxJeu( nbfichesTypesUnites,  nbJoueurs, nbUnitesMagasin, nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
 }
