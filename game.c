@@ -328,6 +328,18 @@ void reinitialiserTours(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_J
 int chercherIndiceUniteMagasin(int idUnite, int nbUnitesMagasin, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN]){
 
 }
+int chercherMaxIdUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
+
+}
+int chercherIndiceJoueurParSymbole(char symbole, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS]){
+    int existe=-1;
+    for(int i=0;i<nbJoueurs;i++){
+        if(joueurs[i].symbole==symbole){
+            existe=i;
+        }
+    }
+    return existe;
+}
 // charger functions
 int chargerUnitesMagasinVersTableau(UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], char *nomFichier)
 {
