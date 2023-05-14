@@ -631,11 +631,11 @@ void deplacerUnite(int numJoueur, int indiceDansUnitesJoueurs, int numUnite, int
             if(villages[i].ligne==nouvelle_ligne&&villages[i].colonne==nouvelle_colonne){
                 if(villages[i].idJoueurProprietaire==0){
                     miseAJourJoueurApresOccupationVillage(numJoueur,joueurs);
-                    unitesJoueurs[indiceDansUnitesJoueurs].ligne=nouvelle_ligne;
-                    unitesJoueurs[indiceDansUnitesJoueurs].colonne=nouvelle_colonne;
                 }
             }
         }
+        unitesJoueurs[indiceDansUnitesJoueurs].ligne=nouvelle_ligne;
+        unitesJoueurs[indiceDansUnitesJoueurs].colonne=nouvelle_colonne;
     }
 }
 void completerInitialisationUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],int nbFichesTypesUnites, FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
