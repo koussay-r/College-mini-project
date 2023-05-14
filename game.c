@@ -318,7 +318,7 @@ void reinitialiserTours(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_J
         unitesJoueurs[i].finTour=0;
         unitesJoueurs[i].mouvements=unitesJoueurs[i].mouvementsMax;
     }
-    for(int j=0;j<nbJoueurs;i++){
+    for(int j=0;j<nbJoueursji++){
         if(joueurs[j].idJoueur==idJoueur){
             joueurs[j].or=joueurs[j].or+8;
         }
