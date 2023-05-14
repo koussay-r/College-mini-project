@@ -628,10 +628,11 @@ void placerUnitesDansCarte(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], 
 void deplacerUnite(int numJoueur, int indiceDansUnitesJoueurs, int numUnite, int ligne_courante, int colonne_courante, int nouvelle_ligne, int nouvelle_colonne, int nbJoueurs, int nbVillages, CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Village villages[MAX_LIGNES_VILLAGES]){
     if(carte[ligne_courante][colonne_courante].marque==1&&carte[ligne_courante][colonne_courante].idUnite==0){
         for(int i=0;i<nbVillages;i++){
-            if(villages[i].ligne==ligne_courante&&villages[i].colonne==colonne_courante){
+            if(villages[i].ligne==nouvelle_ligne&&villages[i].colonne==nouvelle_colonne){
                 if(villages[i].idJoueurProprietaire==0){
-                    miseAJourJoueurApresOccupationVillage(int indiceJoueur, Joueur joueurs[MAX_LIGNES_JOUEURS]){
-
+                    miseAJourJoueurApresOccupationVillage(numJoueur,joueurs);
+                    unitesJoueurs[indiceDansUnitesJoueurs].ligne=nouvelle_ligne;
+                    unitesJoueurs[indiceDansUnitesJoueurs].colonne=nouvelle_colonne;
                 }
             }
         }
