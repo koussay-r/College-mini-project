@@ -314,11 +314,12 @@ int verifierFinTours(int idJoueur, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJO
 }
 void reinitialiserTours(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
     /*mchk m3aytlha fel main*/
+    /*deposy*/
     for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
         unitesJoueurs[i].finTour=0;
         unitesJoueurs[i].mouvements=unitesJoueurs[i].mouvementsMax;
     }
-    for(int j=0;j<nbJoueursji++){
+    for(int j=0;j<nbJoueurs;j++){
         if(joueurs[j].idJoueur==idJoueur){
             joueurs[j].or=joueurs[j].or+8;
         }
@@ -811,13 +812,28 @@ void main()
     scanf("%d %d",&ligne,&colonne);
     marquerDeplacementsPossibles( carte,ligne,colonne,4);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
-    printf("\nclickez 1 si vous voulez effacer les deplacement possibles 0 si vous voulez continuer\n");
+    printf("\nclickez 1 si vous voulez effacer les deplacement possibles 0 si vous voulez continuer 2 si vous voulez deplacer un joueur\n");
     int effaceDeplacement;
     scanf("%d",&effaceDeplacement);
     if(effaceDeplacement==1){
         effacerDeplacementsPossibles(carte);
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
-    else{
+    else if (effaceDeplacement==0){
+    afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
+    sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
+    }
+    else if(effaceDeplacement==2){
+        int nouvelle_colonne,nouvelle_ligne;
+        printf("\nentrer la ligne et la colonne\n");
+        scanf("%d %d",&nouvelle_ligne,&nouvelle_colonne);
+        for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+            if(unitesJoueurs[i].ligne==nouvelle_ligne&&unitesJoueurs[i].colonne==nouvelle_colonne){
+        deplacerUnite(1,i,unitesJoueurs[i].idUnite, unitesJoueurs[i].ligne, unitesJoueurs[i].colonne, nouvelle_ligne,nouvelle_colonne,nbJoueurs,nbVillages,carte,joueurs,unitesJoueurs,villages);
+            }
+        }
+    effacerDeplacementsPossibles(carte);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
     }
