@@ -640,11 +640,11 @@ int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUni
     }
 }
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin, int nbFichesTypesUnites,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
-        printf("*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n--------------------------------------------------------------------------------------------------------------------------------------------------------------\n|idUnite|race|type|prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
+        printf("*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
         for(int i=0;i<nbUnitesMagasin;i++){
             if(idJoueur==unitesMagasin[i].idJoueurAutorise){
-            printf("----------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("|%d|%d|%s|%d|%d|%d|%d|%d|%d",unitesMagasin[i].idUniteMagasin,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].race,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].nom,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].prix,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].pvMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].mouvementsMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].xpRequise,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].niveau,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].alignement);
+            printf("----------------------------------------------------------------\n");
+            printf("|   %d   | %d |%s | %d | %d | %d | %d | %d | %d \n",unitesMagasin[i].idUniteMagasin,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].race,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].nom,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].prix,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].pvMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].mouvementsMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].xpRequise,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].niveau,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].alignement);
             }
         }
 
@@ -847,6 +847,7 @@ void main()
     afficherTableauxJeu( nbfichesTypesUnites,  nbJoueurs, nbUnitesMagasin, nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
+    afficherUnitesMagasinUnJoueur(2,8, 10, unitesMagasin, fichesTypesUnites);
     int ligne,colonne;
     printf("\nentrer la ligne et la colone du joueur pour marker les deplacements possible\n");
     scanf("%d %d",&ligne,&colonne);
@@ -894,6 +895,7 @@ void main()
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
     afficherCarteJeu( carte,  nbJoueurs, joueurs,nbVillages,villages,unitesJoueurs);
     sauvegarderJeuComplet( nbVillages, nbJoueurs, villages, joueurs, unitesJoueurs);
+        
 
     }else if(tour==1){
          reinitialiserTours( 1, nbJoueurs, joueurs, unitesJoueurs);
@@ -905,8 +907,5 @@ void main()
     }
     else if(menu==2){
     chargerJeuComplet(&nbfichesTypesUnites, &nbJoueurs, &nbUnitesMagasin,&nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
-    }
-    else if(menu==3){
-        afficherUnitesMagasinUnJoueur(2,8, 10, unitesMagasin, fichesTypesUnites);
     }
 }
