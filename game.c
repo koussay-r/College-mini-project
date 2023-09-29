@@ -647,7 +647,6 @@ int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUni
         return -1;
     }
 }
-/*hthy na9ssa*/
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFichesTypesUnites,Joueur joueurs[MAX_LIGNES_JOUEURS],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
         int choixAchatOuRetour,ligne,colone,NumUnite,ConfirmAchat;
         printf("*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
@@ -675,12 +674,12 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
             scanf("%d",&ConfirmAchat);
         }
         if(ConfirmAchat==1){
-            miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,chercherFicheUnite(NumUnite,nbFichesTypesUnites,fichesTypesUnites), unitesJoueurs, joueurs, fichesTypesUnites);
-
+            miseAJourJoueurApresAchatUnite(0, chercherIndiceJoueur(idJoueur, 2, joueurs),chercherFicheUnite(NumUnite,nbFichesTypesUnites,fichesTypesUnites), unitesJoueurs, joueurs, fichesTypesUnites);
+            printf("Achat effectue avec succes !");
         }
         }
 }
-//appliquer et placer
+//applx iquer et placer
 void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
 
 }
