@@ -626,7 +626,6 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
         }
     }
 }
-/*7abesst hna*/
 int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     int i=0;
     while(idFicheTypeUnite!=fichesTypesUnites[i].idFicheTypeUnite&&i<=nbFichesTypesUnites){
@@ -639,6 +638,7 @@ int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUni
         return -1;
     }
 }
+/*hthy na9ssa*/
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin, int nbFichesTypesUnites,UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
         printf("*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
         for(int i=0;i<nbUnitesMagasin;i++){
@@ -824,12 +824,13 @@ void sauvegarderJeuComplet(int nbLignesVillages, int nbLignesJoueurs,Village vil
     sauvegarderUniteJoueur(unitesJoueurs, "unitesJoueurs_sauvegarde.txt");
 }
 //mise a jour functions
-/*7bast hna*/
+/*makch m3aytlha*/
 void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
-    int choixDuAcheterOuNon;
-    printf("***********************************\n**        Menu achat des unites         **\n***********************************\n** 1- Acheter des nouvelles unites **\n**  0-Revenir au menu precedente **\n");
-    printf("Entrer votre choix (0-1):  ");
-    scanf("%d",&choixDuAcheterOuNon);
+    if(joueurs[indiceJoueur].or>=fichesTypesUnites[indiceFicheTypeUnite].prix){
+    joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
+    joueurs[indiceJoueur].entretien++;
+    joueurs[indiceJoueur].nombreUnites++;
+    }
 }
 void main()
 {
