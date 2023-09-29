@@ -823,6 +823,14 @@ void sauvegarderJeuComplet(int nbLignesVillages, int nbLignesJoueurs,Village vil
     sauvegarderJoueurs(nbLignesJoueurs, joueurs, "joueurs_sauvegarde.txt");
     sauvegarderUniteJoueur(unitesJoueurs, "unitesJoueurs_sauvegarde.txt");
 }
+//mise a jour functions
+/*7bast hna*/
+void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
+    int choixDuAcheterOuNon;
+    printf("***********************************\n**        Menu achat des unites         **\n***********************************\n** 1- Acheter des nouvelles unites **\n**  0-Revenir au menu precedente **\n");
+    printf("Entrer votre choix (0-1):  ");
+    scanf("%d",&choixDuAcheterOuNon);
+}
 void main()
 {
     // tables declaration
