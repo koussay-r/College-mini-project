@@ -525,6 +525,7 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
     fclose(file);
 }
 //mise a jour functions
+/*hthy mch kemla na9ssa haja enu tna7y joueur ba3ed me techra*/
 void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     if(joueurs[indiceJoueur].or>=fichesTypesUnites[indiceFicheTypeUnite].prix){
     joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
@@ -664,7 +665,7 @@ int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUni
     }
 }
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFichesTypesUnites,Joueur joueurs[MAX_LIGNES_JOUEURS],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
-        int choixAchatOuRetour,ligne,colone,NumUnite,ConfirmAchat;
+        int choixAchatOuRetour,ligne,colonne,NumUnite,ConfirmAchat;
         printf("\n*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
         for(int i=0;i<nbUnitesMagasin;i++){
             if(idJoueur==unitesMagasin[i].idJoueurAutorise){
@@ -680,7 +681,7 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
         printf("Entrer la ligne de la case ou vous voulez place votre unite:  ");
         scanf("%d",&ligne);
         printf("Entrer la colone de la case ou vous voulez place votre unite:  ");
-        scanf("%d",&colone);
+        scanf("%d",&colonne);
         printf("Entrer le numero de l'unite que vous voulez acheter:  ");
         scanf("%d",&NumUnite);
         printf("Confermez l'achat (non=0 , oui=1):  ");
@@ -691,6 +692,7 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
         }
         if(ConfirmAchat==1){
             miseAJourJoueurApresAchatUnite(0, chercherIndiceJoueur(idJoueur, 2, joueurs),chercherFicheUnite(NumUnite,nbFichesTypesUnites,fichesTypesUnites), unitesJoueurs, joueurs, fichesTypesUnites);
+            initialiserNouvelleUniteJoueur(0, chercherFicheUnite(NumUnite,nbFichesTypesUnites,fichesTypesUnites),  idJoueur,  ligne,  colonne,  unitesJoueurs,  fichesTypesUnites);
             printf("Achat effectue avec succes !");
         }
         }
