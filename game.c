@@ -301,7 +301,6 @@ int chercherIndiceChefUnitesJoueurs(int idJoueur,UniteJoueur unitesJoueurs[MAX_L
 }
 int verifierFinTours(int idJoueur, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
     /*Si fintour = 1, alors toutes les unités ont fini leur tour*/    
-    /*mchk m3aytlha fel main*/
     int fintour=1;
     for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
         if(unitesJoueurs[i].idJoueur==idJoueur){
@@ -313,8 +312,6 @@ int verifierFinTours(int idJoueur, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJO
     return fintour;
 }
 void reinitialiserTours(int idJoueur, int nbJoueurs, Joueur joueurs[MAX_LIGNES_JOUEURS], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
-    /*mchk m3aytlha fel main*/
-    /*deposy*/
     for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
         unitesJoueurs[i].finTour=0;
         unitesJoueurs[i].mouvements=unitesJoueurs[i].mouvementsMax;
@@ -528,13 +525,32 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
     fclose(file);
 }
 //mise a jour functions
-/*makch m3aytlha*/
 void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     if(joueurs[indiceJoueur].or>=fichesTypesUnites[indiceFicheTypeUnite].prix){
     joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
     joueurs[indiceJoueur].entretien++;
     joueurs[indiceJoueur].nombreUnites++;
     }
+}
+int initialiserNouvelleUniteJoueur(int indiceUniteJoueur, int indiceFicheTypeUnite, int idJoueur, int ligne, int colonne, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
+    int maxNouvelleUnite=chercherMaxIdUnitesJoueurs(unitesJoueurs);
+    unitesJoueurs[maxNouvelleUnite].idUnite=maxNouvelleUnite+1;
+    unitesJoueurs[maxNouvelleUnite].idFicheTypeUnite=fichesTypesUnites[indiceFicheTypeUnite].idFicheTypeUnite;
+    unitesJoueurs[maxNouvelleUnite].idJoueur=idJoueur;
+    strcpy(unitesJoueurs[maxNouvelleUnite].nomUnite,fichesTypesUnites[indiceFicheTypeUnite].nom);
+    unitesJoueurs[maxNouvelleUnite].active=1;
+    unitesJoueurs[maxNouvelleUnite].rang=0;
+    unitesJoueurs[maxNouvelleUnite].ligne=ligne;
+    unitesJoueurs[maxNouvelleUnite].colonne=colonne;
+    unitesJoueurs[maxNouvelleUnite].traits[0]=0;
+    unitesJoueurs[maxNouvelleUnite].pv=fichesTypesUnites[indiceFicheTypeUnite].pvMax;
+    unitesJoueurs[maxNouvelleUnite].pvMax=fichesTypesUnites[indiceFicheTypeUnite].pvMax;
+    unitesJoueurs[maxNouvelleUnite].mouvements=fichesTypesUnites[indiceFicheTypeUnite].mouvementsMax;
+    unitesJoueurs[maxNouvelleUnite].mouvementsMax=fichesTypesUnites[indiceFicheTypeUnite].mouvementsMax;
+    unitesJoueurs[maxNouvelleUnite].xp=fichesTypesUnites[indiceFicheTypeUnite].xpRequise;
+    unitesJoueurs[maxNouvelleUnite].xpRequise=fichesTypesUnites[indiceFicheTypeUnite].xpRequise;
+    unitesJoueurs[maxNouvelleUnite].niveau=fichesTypesUnites[indiceFicheTypeUnite].niveau;
+    unitesJoueurs[maxNouvelleUnite].alignement=fichesTypesUnites[indiceFicheTypeUnite].alignement;
 }
 // affichage functions
 void afficherUnitesMagasin(int nbUnitesMagasin, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN])
@@ -649,7 +665,7 @@ int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUni
 }
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFichesTypesUnites,Joueur joueurs[MAX_LIGNES_JOUEURS],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
         int choixAchatOuRetour,ligne,colone,NumUnite,ConfirmAchat;
-        printf("*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
+        printf("\n*** UNITES DISPONIBLE POUR ACHAT DANS LE MAGASIN***\n-----------------------------------------------------------------\n|idUnite|race|   type    |prix|pvMax|MvtMAx|xpRequise|niveau|alignement|\n");
         for(int i=0;i<nbUnitesMagasin;i++){
             if(idJoueur==unitesMagasin[i].idJoueurAutorise){
             printf("----------------------------------------------------------------\n");
