@@ -281,6 +281,7 @@ void miseAJourJoueurApresOccupationVillage(int indiceJoueur, Joueur joueurs[MAX_
 int chercherMaxIdUnitesJoueurs(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
     int max=0;
     for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+        printf(" \n %d \n ",unitesJoueurs[i].idUnite);
         if(unitesJoueurs[i].idUnite>max){
             max=unitesJoueurs[i].idUnite;
         }
@@ -527,6 +528,8 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
 //mise a jour functions
 /*hthy mch kemla na9ssa haja enu tna7y joueur ba3ed me techra*/
 /* kamlha o a3mel depose*/
+
+/*ess2ll lena kifh na7u joueur eli chrineh o chnya na3mlo bel indiceUniteJoueur*/
 void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     if(joueurs[indiceJoueur].or>=fichesTypesUnites[indiceFicheTypeUnite].prix){
     joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
@@ -537,6 +540,7 @@ void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int 
 }
 int initialiserNouvelleUniteJoueur(int indiceUniteJoueur, int indiceFicheTypeUnite, int idJoueur, int ligne, int colonne, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     int maxNouvelleUnite=chercherMaxIdUnitesJoueurs(unitesJoueurs);
+    printf(" \n %d \n ",maxNouvelleUnite);
     unitesJoueurs[maxNouvelleUnite].idUnite=maxNouvelleUnite+1;
     unitesJoueurs[maxNouvelleUnite].idFicheTypeUnite=fichesTypesUnites[indiceFicheTypeUnite].idFicheTypeUnite;
     unitesJoueurs[maxNouvelleUnite].idJoueur=idJoueur;
@@ -833,7 +837,6 @@ void sauvegarderUniteJoueur(UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],
 }
 //initiatlisation
 void initialiserNouveauJeu(int *nbfichesTypesUnites, int *nbJoueurs, int *nbUnitesMagasin,int *nbVillages,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES],Joueur joueurs[MAX_LIGNES_JOUEURS],CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],Village villages[MAX_LIGNES_VILLAGES],TypeTerrain typesTerrains[NB_TYPES_TERRAINS],Periode periodes[NB_LIGNES_PERIODES],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
-    /*mch depose*/
     int numbr_unites;
     *nbUnitesMagasin = chargerUnitesMagasinVersTableau(unitesMagasin, "unitesMagasin_original.txt");
     *nbVillages = chargerVillagesVersTableau(villages, "villages_original.txt");
