@@ -495,7 +495,7 @@ void chargerCarteVersTableau(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CAR
     {
         char ligne[100];
         fgets(ligne, 100, file);
-        for (int j = 0; j < (NB_COLONNES_CARTE * 2) - 1; j++)
+        for (int j = 0; j < NB_COLONNES_CARTE ; j++)
         {
             if (strcmp(&ligne[j], " ") != 0)
             {
@@ -525,15 +525,10 @@ void chargerUnitesJoueursSauvegardeesVersTableau(UniteJoueur unitesJoueurs[MAX_L
     }
     fclose(file);
 }
-//mise a jour functions
-/*hthy mch kemla na9ssa haja enu tna7y joueur ba3ed me techra*/
-/* kamlha o a3mel depose*/
-
-/*ess2ll lena kifh na7u joueur eli chrineh o chnya na3mlo bel indiceUniteJoueur*/
 void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int indiceFicheTypeUnite, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     if(joueurs[indiceJoueur].or>=fichesTypesUnites[indiceFicheTypeUnite].prix){
     joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
-    joueurs[indiceJoueur].entretien++;
+    joueurs[indiceJoueur].entretien=joueurs[indiceJoueur].entretien+unitesJoueurs[indiceUniteJoueur].niveau;
     joueurs[indiceJoueur].nombreUnites++;
 
     }
@@ -543,7 +538,7 @@ int initialiserNouvelleUniteJoueur(int indiceUniteJoueur, int indiceFicheTypeUni
     printf(" \n %d \n ",maxNouvelleUnite);
     unitesJoueurs[maxNouvelleUnite].idUnite=maxNouvelleUnite+1;
     unitesJoueurs[maxNouvelleUnite].idFicheTypeUnite=fichesTypesUnites[indiceFicheTypeUnite].idFicheTypeUnite;
-    unitesJoueurs[maxNouvelleUnite].idJoueur=idJoueur;
+    unitesJoueurs[maxNouvelleUnite].idJoueur= idJoueur;
     strcpy(unitesJoueurs[maxNouvelleUnite].nomUnite,fichesTypesUnites[indiceFicheTypeUnite].nom);
     unitesJoueurs[maxNouvelleUnite].active=1;
     unitesJoueurs[maxNouvelleUnite].rang=0;
@@ -658,18 +653,6 @@ void afficherCarteJeu(CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE], in
         }
     }
 }
-int chercherFicheUnite(int idFicheTypeUnite,int nbFichesTypesUnites,FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
-    int i=0;
-    while(idFicheTypeUnite!=fichesTypesUnites[i].idFicheTypeUnite&&i<=nbFichesTypesUnites){
-        i++;
-    }
-    if(idFicheTypeUnite==fichesTypesUnites[i].idFicheTypeUnite){
-    return i;
-    }
-    else{
-        return -1;
-    }
-}
 /*deposy*/
 void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFichesTypesUnites,Joueur joueurs[MAX_LIGNES_JOUEURS],UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS],UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN],FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
         int choixAchatOuRetour,ligne,colonne,NumUnite,ConfirmAchat;
@@ -677,7 +660,7 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
         for(int i=0;i<nbUnitesMagasin;i++){
             if(chercherIndiceJoueur(idJoueur, 2, joueurs)+1==unitesMagasin[i].idJoueurAutorise){
             printf("----------------------------------------------------------------\n");
-            printf("|   %d   | %d |%s | %d | %d | %d | %d | %d | %d \n",unitesMagasin[i].idUniteMagasin,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].race,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].nom,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].prix,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].pvMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].mouvementsMax,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].xpRequise,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].niveau,fichesTypesUnites[chercherFicheUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].alignement);
+            printf("|   %d   | %d |%s | %d | %d | %d | %d | %d | %d \n",unitesMagasin[i].idUniteMagasin,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].race,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].nom,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].prix,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].pvMax,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].mouvementsMax,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].xpRequise,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].niveau,fichesTypesUnites[chercherIndiceFicheTypeUnite(unitesMagasin[i].idFicheTypeUnite,nbFichesTypesUnites, fichesTypesUnites)].alignement);
             }
         }
         printf("\n");
@@ -698,8 +681,8 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
             scanf("%d",&ConfirmAchat);
         }
         if(ConfirmAchat==1){
-            miseAJourJoueurApresAchatUnite(0, chercherIndiceJoueur(idJoueur, 2, joueurs),chercherFicheUnite(unitesMagasin[chercherIndiceUniteMagasin(NumUnite, idJoueur,  nbUnitesMagasin, unitesMagasin)].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites), unitesJoueurs, joueurs, fichesTypesUnites);
-            initialiserNouvelleUniteJoueur(0, chercherFicheUnite(unitesMagasin[chercherIndiceUniteMagasin(NumUnite, idJoueur,  nbUnitesMagasin, unitesMagasin)].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites),  idJoueur,  ligne,  colonne,  unitesJoueurs,  fichesTypesUnites);
+            miseAJourJoueurApresAchatUnite(0, chercherIndiceJoueur(idJoueur, 2, joueurs),chercherIndiceFicheTypeUnite(unitesMagasin[chercherIndiceUniteMagasin(NumUnite, idJoueur,  nbUnitesMagasin, unitesMagasin)].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites), unitesJoueurs, joueurs, fichesTypesUnites);
+            initialiserNouvelleUniteJoueur(0, chercherIndiceFicheTypeUnite(unitesMagasin[chercherIndiceUniteMagasin(NumUnite, idJoueur,  nbUnitesMagasin, unitesMagasin)].idFicheTypeUnite,nbFichesTypesUnites,fichesTypesUnites),  chercherIndiceJoueur(idJoueur, 2, joueurs)+1,  ligne,  colonne,  unitesJoueurs,  fichesTypesUnites);
             printf("Achat effectue avec succes !");
              afficherJoueurJeu( idJoueur, 2,  joueurs);
               afficherUniteJoueur( unitesJoueurs);
