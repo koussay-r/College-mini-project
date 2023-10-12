@@ -535,7 +535,6 @@ void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int 
 }
 int initialiserNouvelleUniteJoueur(int indiceUniteJoueur, int indiceFicheTypeUnite, int idJoueur, int ligne, int colonne, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
     int maxNouvelleUnite=chercherMaxIdUnitesJoueurs(unitesJoueurs);
-    printf(" \n %d \n ",maxNouvelleUnite);
     unitesJoueurs[maxNouvelleUnite].idUnite=maxNouvelleUnite+1;
     unitesJoueurs[maxNouvelleUnite].idFicheTypeUnite=fichesTypesUnites[indiceFicheTypeUnite].idFicheTypeUnite;
     unitesJoueurs[maxNouvelleUnite].idJoueur= idJoueur;
