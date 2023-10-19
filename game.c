@@ -688,6 +688,25 @@ void afficherUnitesMagasinUnJoueur(int idJoueur, int nbUnitesMagasin,  int nbFic
         }
         }
 }
+void acheterUnites(int idJoueur, int ligneDonjon, int colonneDonjon, int nbUnitesMagasin, int nbJoueurs, int nbFichesTypesUnites, int nbVillages, UniteMagasin unitesMagasin[MAX_LIGNES_UNITESMAGASIN], UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], Joueur joueurs[MAX_LIGNES_JOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES], Village villages[MAX_LIGNES_VILLAGES], CelluleCarte carte[NB_LIGNES_CARTE][NB_COLONNES_CARTE]){
+    int numeroDonnee;
+    printf("Donner le numero d'unite a jouer ou 0 si vous voulez vorcer la fin du tour ou -1 si vous voulez acheter des uniteesn\n");
+    scanf("%d",&numeroDonnee);
+    if(numeroDonnee==0){
+        for(int i=0;i<MAX_LIGNES_UNITESJOUEURS;i++){
+        if(unitesJoueurs[i].idJoueur==idJoueur){
+            if(unitesJoueurs[i].finTour==0){
+                unitesJoueurs[i].finTour=1;
+            }
+        }
+    }
+    }
+    else if(numeroDonnee==-1){
+        if(unitesJoueurs[chercherIndiceChefUnitesJoueurs( idJoueur, unitesJoueurs)].idUnite==carte[ligneDonjon][colonneDonjon].idUnite){
+    afficherUnitesMagasinUnJoueur(48,8, 10,joueurs,unitesJoueurs, unitesMagasin, fichesTypesUnites);
+        }
+    }
+}
 //applx iquer et placer
 void appliquerTrait(int indiceUniteJoueur, int trait, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS]){
 
@@ -884,7 +903,6 @@ void main()
     afficherTableauxJeu( nbfichesTypesUnites,  nbJoueurs, nbUnitesMagasin, nbVillages, fichesTypesUnites, joueurs, carte, unitesMagasin, villages, typesTerrains, periodes, unitesJoueurs);
     afficherJoueurJeu(48,2,joueurs);
     afficherUnitesJoueursJeu(1, 1,unitesJoueurs);
-    afficherUnitesMagasinUnJoueur(48,8, 10,joueurs,unitesJoueurs, unitesMagasin, fichesTypesUnites);
     int ligne,colonne;
     printf("\nentrer la ligne et la colone du joueur pour marker les deplacements possible\n");
     scanf("%d %d",&ligne,&colonne);
