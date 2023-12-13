@@ -530,7 +530,6 @@ void miseAJourJoueurApresAchatUnite(int indiceUniteJoueur, int indiceJoueur,int 
     joueurs[indiceJoueur].or=joueurs[indiceJoueur].or-fichesTypesUnites[indiceFicheTypeUnite].prix;
     joueurs[indiceJoueur].entretien=joueurs[indiceJoueur].entretien+unitesJoueurs[indiceUniteJoueur].niveau;
     joueurs[indiceJoueur].nombreUnites++;
-
     }
 }
 int initialiserNouvelleUniteJoueur(int indiceUniteJoueur, int indiceFicheTypeUnite, int idJoueur, int ligne, int colonne, UniteJoueur unitesJoueurs[MAX_LIGNES_UNITESJOUEURS], FicheTypeUnite fichesTypesUnites[MAX_LIGNES_FICHES_TYPES_UNITES]){
@@ -756,6 +755,7 @@ void deplacerUnite(int idJoueur, int indiceDansUnitesJoueurs, int numUnite, int 
             if(villages[i].ligne==nouvelle_ligne&&villages[i].colonne==nouvelle_colonne){
                 if(villages[i].idJoueurProprietaire==0){
                     miseAJourJoueurApresOccupationVillage(idJoueur,joueurs);
+                    joueurs[chercherIndiceJoueur( idJoueur, 2,joueurs)].nombreVillages++;
                 }
             }
         }
